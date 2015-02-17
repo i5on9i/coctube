@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_window">#FFE5E5E5</color>
+
+
+
+
+    <!--action bar-->
+    <color name="action_bar_line_color">#ffffffff</color>
+    <color name="action_bar_color">#ffffd800</color>
+    <color name="action_bar_text">#ff1f1f1f</color>
+    <color name="action_bar_pressed">#ffffe84d</color>
+
+
+    <color name="video_list_bg">#ffffffff</color>
+
+
+
+    <!--list item-->
+    <color name="item_pressed_color">#ffa2c0e5</color>
+    <color name="item_title_color">#ff040404</color>
+    <color name="item_no_color">#FF000000</color>
+    <color name="item_desc_color">#ff3d3d3d</color>
+
+    <color name="item_dur_color">#ffa7a7a7</color>
+
+    <color name="item_shadow">#ffdadada</color>
+
+
+    <color name="item_noimage">@color/item_shadow</color>
+
+
+    <!-- tabs -->
+    <color name="tab_indicator">@color/item_shadow</color>
+    <color name="tab_underline">@color/item_shadow</color>
+    <color name="tab_background">#ffffffff</color>
+
+
+    <color name="drawer_menu_list_divider">#ffc4c4c4</color>
+    <color name="drawer_menu_list_background">#ffffff</color>
+    <color name="drawer_menu_list_background_pressed">#ffbed7f0</color>
+    <color name="drawer_menu_list_item_title">#ff666666</color>
+    <color name="drawer_menu_list_item_title_inversed">#ffffffff</color>
+    <color name="drawer_menu_counter_text_bg">#ff4f99ff</color>
+    <color name="drawer_menu_counter_text_color">#fffffefe</color>
+
+
+    <color name="section_color_1">#ffff4444</color>
+    <color name="section_color_2">#ff99cc00</color>
+    <color name="section_color_3">#ffffbb33</color>
+    <color name="section_color_4">#ff33b5e5</color>
+
+
+    <color name="background_tab_pressed">#ffffe84d</color>
+</resources>

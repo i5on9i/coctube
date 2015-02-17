@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_drawer_tv</item>
+        <item>@drawable/ic_drawer_tv</item>
+        <item>@drawable/ic_drawer_tv</item>
+        <item>@drawable/ic_drawer_tv</item>
+        <item>@drawable/ic_drawer_tv</item>
+        <item>@drawable/ic_drawer_like</item>
+        <item>@drawable/ic_drawer_mail</item>
+
+    </array>
+
+    <array name="nav_drawer_icons_inverse">
+        <item>@drawable/ic_drawer_tv_inverse</item>
+        <item>@drawable/ic_drawer_tv_inverse</item>
+        <item>@drawable/ic_drawer_tv_inverse</item>
+        <item>@drawable/ic_drawer_tv_inverse</item>
+        <item>@drawable/ic_drawer_tv_inverse</item>
+        <item>@drawable/ic_drawer_like_inverse</item>
+        <item>@drawable/ic_drawer_mail_inverse</item>
+
+    </array>
+
+</resources>

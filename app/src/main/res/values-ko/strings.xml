@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Coc Tube</string>
+    <string name="action_contact">Contact</string>
+    <string name="action_report">제안하기</string>
+    <string name="action_sort_by_time">최신순 정렬</string>
+    <string name="action_sort_by_hit">조회순 정렬</string>
+
+    <string name="report_email_address">tpwndksl85@gmail.com</string>
+    <string name="sending_a_memo_using">제안 보내기 ...</string>
+
+
+
+    <string name="view_count">| 조회수 :</string>
+    <string name="updated_delimiter"> · </string>
+
+    <string name="page_name_1">Best Clash Of Clan Raids</string>
+    <string name="page_name_2">Clash of Clan 101</string>
+    <string name="page_name_3">God Son</string>
+    <string name="page_name_4">HateKerr</string>
+
+
+
+    <string name="page_name_ongamenet_1">롤챔스 핫클립</string>
+    <string name="page_name_ongamenet_2">롤챔스 Top5 &amp; 하이라이트</string>
+
+
+    <string name="page_name_kaza_1">Full, EU LCS Spring 2014</string>
+    <string name="page_name_kaza_2">Highlights, EU LCS Spring 2014</string>
+    <string name="page_name_kaza_3">Full, NA LCS Spring 2014</string>
+    <string name="page_name_kaza_4">Highlights, NA LCS Spring 2014</string>
+
+    <string name="page_name_mr_1">Random LoL Moments</string>
+    <string name="page_name_mr_2">Top5 Fails</string>
+    <string name="page_name_mr_3">Top5 Plays</string>
+
+    <string name="page_name_protato_1">Top5 Plays</string>
+    <string name="page_name_protato_2">Plays Teamwork</string>
+
+
+    <string name="ongame_list">온게임넷 롤챔스</string>
+    <string name="kaza_list">해외리그 LCS</string>
+    <string name="mr_list">해외LOL TOP5시리즈1</string>
+    <string name="protato_list">해외LOL TOP5시리즈2</string>
+
+
+
+    <string name="like">즐겨찾기</string>
+    <string name="setting">설정</string>
+    <string name="desc_list_item_icon">아이템 아이콘</string>
+    <string name="report">제안하기</string>
+    <string name="video_list_setting">영상 목록 설정</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item >@string/app_name</item>
+        <!--<item >@string/ongame_list</item>-->
+        <!--<item >@string/kaza_list</item>-->
+        <!--<item >@string/mr_list</item>-->
+        <!--<item >@string/protato_list</item>-->
+        <item >@string/like</item>
+        <item >@string/report</item>
+        <!--<item >@string/video_list_setting</item>-->
+    </string-array>
+
+
+
+
+
+
+</resources>

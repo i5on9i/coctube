@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+              <!--android:orientation="vertical"-->
+              <!--android:layout_width="match_parent"-->
+              <!--android:layout_height="match_parent"-->
+              <!--android:id="@+id/main_layout"-->
+        <!-->-->
+
+    <!--<com.google.ads.AdView-->
+            <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+            <!--xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"-->
+            <!--android:id="@+id/adView"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+
+            <!--ads:adUnitId="a15288869aa63a8"-->
+            <!--ads:adSize="BANNER"-->
+
+            <!--ads:testDevices="TEST_EMULATOR, 2A413FFEAE66ACA3E4DB2847B6560D0E"-->
+            <!--ads:loadAdOnCreate="true"/>-->
+
+
+
+
+    <!--<com.cocube.otherplaylist.PinnedSectionListView-->
+    <ListView
+
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+
+            android:id="@+id/listview_of_videolist"
+
+            android:background="@color/video_list_bg"
+
+
+
+            android:divider="@android:color/black"
+            android:dividerHeight="7dp"
+            />
+
+        <!--android:paddingLeft="@dimen/itemlist_paddingLeft"-->
+        <!--android:paddingRight="@dimen/itemlist_paddingLeft"-->
+        <!--android:scrollbarStyle="outsideOverlay"-->
+        <!--android:smoothScrollbar="false"-->
+
+
+        <!--android:divider="@android:color/transparent"-->
+        <!--android:dividerHeight="0dip"-->
+
+    <!--<include-->
+            <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_width="match_parent"-->
+
+            <!--layout="@layout/list_card_ui"-->
+            <!--/>-->
+
+
+
+
+
+
+
+
+<!--</LinearLayout>-->
+

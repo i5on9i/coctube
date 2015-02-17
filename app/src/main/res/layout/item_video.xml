@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:paddingTop="@dimen/item_paddingTop"
+                android:paddingBottom="@dimen/item_paddingBottom"
+
+
+                android:background="@drawable/item_selector"
+
+        >
+    <!--android:background="@drawable/item_report_selector"-->
+
+
+    <!--thumb-->
+    <com.cocube.imageloader.DynamicImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="@dimen/item_thumb_marginLeft"
+            android:layout_marginRight="@dimen/item_thumb_marginLeft"
+
+            android:id="@+id/item_thumb"
+            android:scaleType="centerCrop"
+
+            android:layout_marginBottom="10dp"
+
+            />
+
+    <!-- Like button -->
+
+
+    <ImageView
+            android:layout_width="@dimen/item_like_button_width"
+            android:layout_height="@dimen/item_like_button_width"
+            android:layout_marginLeft="@dimen/item_like_marginLeft"
+            android:layout_marginTop="@dimen/item_like_marginLeft"
+
+
+            android:id="@+id/item_like"/>
+
+
+    <LinearLayout
+            android:id="@+id/item_no_frame"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_thumb"
+
+            android:padding="@dimen/item_no_padding"
+
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5dip"
+            android:gravity="center_horizontal"
+            >
+
+        <!--number-->
+        <TextView
+                android:id="@+id/item_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/item_left_padding"
+
+                android:textStyle="bold"
+                android:textSize="@dimen/item_no_text_size"
+                android:text="1."
+                android:visibility="visible"
+                android:textColor="@color/item_no_color"/>
+
+
+    </LinearLayout>
+
+
+
+    <!-- title -->
+    <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/between_no_item"
+
+
+            android:layout_toRightOf="@id/item_no_frame"
+            android:layout_below="@id/item_thumb"
+
+
+            android:text="Rihanna Love the way lie"
+            android:textColor="@color/item_title_color"
+            android:typeface="sans"
+            android:textSize="@dimen/item_name_text_size"
+            android:textStyle="normal"
+
+            />
+
+
+    <!--desc -->
+    <!--<TextView-->
+    <!--android:id="@+id/item_desc"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:paddingLeft="@dimen/between_no_item"-->
+    <!--android:paddingTop="@dimen/between_no_item"-->
+
+    <!--android:layout_toRightOf="@id/item_no_frame"-->
+    <!--android:layout_below="@id/item_name"-->
+
+
+    <!--android:text="Rihanna Love the way lie"-->
+    <!--android:textColor="@color/item_desc_color"-->
+    <!--android:typeface="sans"-->
+    <!--android:textSize="@dimen/item_desc_text_size"-->
+    <!--android:textStyle="normal"-->
+
+    <!--/>-->
+
+
+
+
+    <!--duration-->
+    <TextView
+            android:id="@+id/item_dur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/between_no_item"
+            android:paddingTop="@dimen/between_no_item"
+
+            android:layout_toRightOf="@id/item_no_frame"
+            android:layout_below="@id/item_name"
+
+
+            android:text="5:30"
+
+            style="@style/InfoStyle"/>
+
+
+    <!--view count text -->
+    <TextView
+            android:id="@+id/item_view_count_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/between_no_item"
+            android:paddingTop="@dimen/between_no_item"
+
+            android:layout_toRightOf="@id/item_dur"
+            android:layout_below="@id/item_name"
+
+
+            android:text="@string/view_count"
+            style="@style/InfoStyle"
+
+            />
+
+    <!--view count -->
+    <TextView
+            android:id="@+id/item_view_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/between_no_item"
+            android:paddingTop="@dimen/between_no_item"
+
+            android:layout_toRightOf="@id/item_view_count_text"
+            android:layout_below="@id/item_name"
+
+
+            android:text="22222"
+            style="@style/InfoStyle"
+
+            />
+
+    <!-- delimiter -->
+    <TextView
+        android:id="@+id/item_updated_delimiter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/between_no_item"
+        android:paddingTop="@dimen/between_no_item"
+
+        android:layout_toRightOf="@id/item_view_count"
+        android:layout_below="@id/item_name"
+
+
+        android:text="@string/updated_delimiter"
+
+        style="@style/InfoStyle"/>
+
+    <!-- updated -->
+    <TextView
+        android:id="@+id/item_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/between_no_item"
+        android:paddingTop="@dimen/between_no_item"
+
+        android:layout_toRightOf="@id/item_updated_delimiter"
+        android:layout_below="@id/item_name"
+
+
+        android:text="2013-03-03 5:30PM"
+
+        style="@style/InfoStyle"/>
+
+
+</RelativeLayout>
+
