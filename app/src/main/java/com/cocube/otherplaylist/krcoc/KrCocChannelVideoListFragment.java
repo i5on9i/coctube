@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cocube;
+package com.cocube.otherplaylist.krcoc;
 
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
@@ -27,21 +27,24 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.cocube.LolTvItemAdapter;
+import com.cocube.LolTvPreference;
+import com.cocube.R;
 import com.cocube.like.LikeSingleton;
 import com.cocube.loadmore.LoadMoreScrollListener;
 import com.cocube.parser.LoadListAndParseAsyncTask;
 import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
-import com.cocube.parser.latest.BestCocRaidsLatestVideosParserInfo;
-import com.cocube.parser.latest.Coc101LatestVideosParserInfo;
-import com.cocube.parser.latest.GodSonLatestVideosParserInfo;
-import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
+import com.cocube.parser.krcoc.LiarTvCocParserInfo;
+import com.cocube.parser.krcoc.OldPopTvParserInfo;
+import com.cocube.parser.krcoc.PungMeCocParserInfo;
+import com.cocube.parser.krcoc.ThumbGamesParserInfo;
 import com.cocube.provider.LolTvContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListFragment extends SherlockFragment {
+public class KrCocChannelVideoListFragment extends SherlockFragment {
 
     private static final String ARG_POSITION = "position";
 
@@ -51,8 +54,8 @@ public class VideoListFragment extends SherlockFragment {
     private ParserInfo mParserInfo;
     private int mCurrentOrderBy = ParserInfo.SORT_TYPE_INIT;
 
-    public static VideoListFragment newInstance(int position) {
-        VideoListFragment f = new VideoListFragment();
+    public static KrCocChannelVideoListFragment newInstance(int position) {
+        KrCocChannelVideoListFragment f = new KrCocChannelVideoListFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
@@ -80,7 +83,7 @@ public class VideoListFragment extends SherlockFragment {
         View fragment = inflater.inflate(R.layout.list_fragment, container, false);
 
         int newOrderBy = LolTvPreference.getOrderBy(getSherlockActivity());
-        if(isOrderChanged(mPosition, newOrderBy)){
+        if (isOrderChanged(mPosition, newOrderBy)) {
             mParserInfo = getParserInfo(mPosition, newOrderBy);
             initList(mParserInfo, newOrderBy);
         }
@@ -96,10 +99,8 @@ public class VideoListFragment extends SherlockFragment {
         lv.setOnScrollListener(scrollListener);
 
 
-
         return fragment;
     }
-
 
 
     private void initList(ParserInfo parserInfo, int newOrderBy) {
@@ -114,7 +115,7 @@ public class VideoListFragment extends SherlockFragment {
 
 
     private boolean isOrderChanged(int pos, int newOrderBy) {
-        if(mCurrentOrderBy == ParserInfo.SORT_TYPE_NONE)
+        if (mCurrentOrderBy == ParserInfo.SORT_TYPE_NONE)
             return false;
         return mCurrentOrderBy != newOrderBy;
     }
@@ -125,24 +126,28 @@ public class VideoListFragment extends SherlockFragment {
         ParserInfo pinfo;
 
 
+        // FIXME : ParserInfos are better to be passed as an argument
         switch (position) {
-            // check
-            // - string.xml
-            // - CocubePagerAdapter
+            // the count of position is determined by {@link *PagerAdapter.getCount()}
+
             case 0:
-                pinfo = new BestCocRaidsLatestVideosParserInfo();
+                pinfo = new OldPopTvParserInfo();
                 break;
             case 1:
-                pinfo = new Coc101LatestVideosParserInfo();
+                pinfo = new PungMeCocParserInfo();
                 break;
+
             case 2:
-                pinfo = new GodSonLatestVideosParserInfo();
+                pinfo = new LiarTvCocParserInfo();
                 break;
+
             case 3:
-                pinfo = new HateKerrLatestVideosParserInfo();
+                pinfo = new ThumbGamesParserInfo();
                 break;
+
+
             default:
-                pinfo = new BestCocRaidsLatestVideosParserInfo();
+                pinfo = new OldPopTvParserInfo();
                 break;
         }
         return pinfo;

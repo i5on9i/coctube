@@ -23,26 +23,31 @@
     <string name="page_name_4">HateKerr</string>
 
 
-    <string name="page_name_ongamenet_1">LOL Champs Hot clips</string>
-    <string name="page_name_ongamenet_2">LOL Champs Top5 &amp; Highlights</string>
+    <string name="page_name_krcoc_1">Old Pop TV</string>
+    <string name="page_name_krcoc_2">Pung-Me CoC</string>
+    <string name="page_name_krcoc_3">Liar TV</string>
+    <string name="page_name_krcoc_4">Thumbs Games</string>
 
-    <string name="page_name_kaza_1">Full, EU LCS Spring 2014</string>
-    <string name="page_name_kaza_2">Highlights, EU LCS Spring 2014</string>
-    <string name="page_name_kaza_3">Full, NA LCS Spring 2014</string>
-    <string name="page_name_kaza_4">Highlights, NA LCS Spring 2014</string>
+    <string name="page_name_coctube2_1">MasterOv</string>
+    <string name="page_name_coctube2_2">Daddy - Clash of Clans</string>
+    <string name="page_name_coctube2_3">flammy5</string>
+    <string name="page_name_coctube2_4">Highlights, NA LCS Spring 2014</string>
 
-    <string name="page_name_mr_1">Random LoL Moments</string>
-    <string name="page_name_mr_2">Top5 Fails</string>
-    <string name="page_name_mr_3">Top5 Plays</string>
+    <string name="page_name_frcoc_1">trapaCoC</string>
+    <string name="page_name_frcoc_2">dovakhin4iphone</string>
+    <string name="page_name_frcoc_3">SauronCoC</string>
+    <string name="page_name_frcoc_4">KawaboumgaCoC </string>
 
     <string name="page_name_protato_1">Top5 Plays</string>
     <string name="page_name_protato_2">Plays Teamwork</string>
 
 
-    <string name="ongame_list">OnGameNet LOL Champs</string>
-    <string name="kaza_list">LCS Highlights</string>
-    <string name="mr_list">MachinimaRealm</string>
+    <string name="korean_list">Korean Coc Channels</string>
+    <string name="coctube2_list">Coc Tube 2nd</string>
+    <string name="french_list">French Coc Channels</string>
     <string name="protato_list">Protatomonster</string>
+
+
     <string name="like">Like</string>
     <string name="setting">Settings</string>
     <string name="desc_list_item_icon">Item Icon</string>
@@ -52,10 +57,10 @@
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
         <item >@string/app_name</item>
-        <!-- @see NavDrawerListAdapter -->
-        <!--<item >@string/ongame_list</item>-->
-        <!--<item >@string/kaza_list</item>-->
-        <!--<item >@string/mr_list</item>-->
+        <item >@string/coctube2_list</item>
+        <item >@string/french_list</item>
+        <item >@string/korean_list</item>
+        <!-- @see NavDrawerListAdapter / SimpleDrawer#processClick -->
         <!--<item >@string/protato_list</item>-->
         <item >@string/like</item>
         <item >@string/report</item>

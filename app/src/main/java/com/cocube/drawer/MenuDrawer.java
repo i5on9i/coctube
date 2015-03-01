@@ -12,6 +12,8 @@ public class MenuDrawer extends ListView {
 
     private int prevSelection = 0;
     private static int LIKE_MENU_ITEM_INDEX = 1;
+    private String[] navMenuTitles;
+
 
     public MenuDrawer(Context context) {
         super(context);
@@ -29,12 +31,13 @@ public class MenuDrawer extends ListView {
     }
 
 
-    void init(){
+    void init() {
+        navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         getLikeMenuIndex();
+
     }
 
     private void getLikeMenuIndex() {
-        String[] navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         LIKE_MENU_ITEM_INDEX = navMenuTitles.length - 2;
     }
 
@@ -43,12 +46,11 @@ public class MenuDrawer extends ListView {
         NavDrawerListAdapter adapter = (NavDrawerListAdapter) getAdapter();
 
         if (adapter != null) {
-            NavDrawerItem menuItem = (NavDrawerItem)adapter.getItem(LIKE_MENU_ITEM_INDEX);
+            NavDrawerItem menuItem = (NavDrawerItem) adapter.getItem(LIKE_MENU_ITEM_INDEX);
             menuItem.setCounterVisibility(true);
             menuItem.setCount(Integer.toString(LikeSingleton.getInstance().count()));
             adapter.notifyDataSetChanged();
         }
-
 
 
     }

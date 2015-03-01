@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cocube;
+package com.cocube.otherplaylist.frenchcoc;
 
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
@@ -27,21 +27,24 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.cocube.LolTvItemAdapter;
+import com.cocube.LolTvPreference;
+import com.cocube.R;
 import com.cocube.like.LikeSingleton;
 import com.cocube.loadmore.LoadMoreScrollListener;
 import com.cocube.parser.LoadListAndParseAsyncTask;
 import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
-import com.cocube.parser.latest.BestCocRaidsLatestVideosParserInfo;
-import com.cocube.parser.latest.Coc101LatestVideosParserInfo;
-import com.cocube.parser.latest.GodSonLatestVideosParserInfo;
-import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
+import com.cocube.parser.frenchcoc.DovakhinParserInfo;
+import com.cocube.parser.frenchcoc.KawaboumgaCocParserInfo;
+import com.cocube.parser.frenchcoc.SauronCocParserInfo;
+import com.cocube.parser.frenchcoc.TrapaCocParserInfo;
 import com.cocube.provider.LolTvContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListFragment extends SherlockFragment {
+public class FrCocChannelVideoListFragment extends SherlockFragment {
 
     private static final String ARG_POSITION = "position";
 
@@ -51,8 +54,8 @@ public class VideoListFragment extends SherlockFragment {
     private ParserInfo mParserInfo;
     private int mCurrentOrderBy = ParserInfo.SORT_TYPE_INIT;
 
-    public static VideoListFragment newInstance(int position) {
-        VideoListFragment f = new VideoListFragment();
+    public static FrCocChannelVideoListFragment newInstance(int position) {
+        FrCocChannelVideoListFragment f = new FrCocChannelVideoListFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
@@ -125,24 +128,26 @@ public class VideoListFragment extends SherlockFragment {
         ParserInfo pinfo;
 
 
+        // FIXME : ParserInfos are better to be passed as an argument
         switch (position) {
-            // check
-            // - string.xml
-            // - CocubePagerAdapter
+            // the count of position is determined by {@link MrPagerAdapter.getCount()}
+
             case 0:
-                pinfo = new BestCocRaidsLatestVideosParserInfo();
+                pinfo = new TrapaCocParserInfo();
                 break;
             case 1:
-                pinfo = new Coc101LatestVideosParserInfo();
+                pinfo = new DovakhinParserInfo();
                 break;
             case 2:
-                pinfo = new GodSonLatestVideosParserInfo();
+                pinfo = new SauronCocParserInfo();
                 break;
             case 3:
-                pinfo = new HateKerrLatestVideosParserInfo();
+                pinfo = new KawaboumgaCocParserInfo();
                 break;
+
+
             default:
-                pinfo = new BestCocRaidsLatestVideosParserInfo();
+                pinfo = new TrapaCocParserInfo();
                 break;
         }
         return pinfo;

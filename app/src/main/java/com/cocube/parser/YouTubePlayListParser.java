@@ -43,51 +43,42 @@ public class YouTubePlayListParser {
     public List<YouTubeVideoItem> parse(InputStream stream) throws IOException, JSONException {
 
         /**
-         * feed -+
-         *       +--- entry -- array --+
-         *                             +---- dict +
-         *                             |          +- published
-         *                             |          +- title
-         *                             |          +- content +
-         *                             |          |          +- src
-         *                             |          +- media$group -- ditct -- media$description -- dict -- $t
-         *                             |
-         *                             +---- dict +
-         *                                        +- published
-         *                                        +- title
-         *                                        +- content +
-         *                                        |          +- src
-         *                                        +- media$group -- ditct -- media$description -- dict -- $t
-         *
-         *
-         *
-         * entry
-         media$group
-         media$description
-         *
-         *
          * {
-         "version": "1.0",
-         "encoding": "UTF-8",
-         "feed": {
-
-         "entry": [
-         {
-         "title": {
-         "$t": "[6\ud68c] 1\ub4f1 \uc2e0\ubd93\uac10 \uce90\ub9ac\ub294 \uc65c \uacb0\ud63c\uc744 \ubabb\ud558\ub098...'\uc778\uc13c\ud2f0\ube0c'\uc758 \ub9c8\ubc95"
-         },
-         "content": {
-         "type": "application\/x-shockwave-flash",
-         "src": "http:\/\/www.youtube.com\/v\/YWZ4S8fcsoM?version=3&f=playlists&app=youtube_gdata"
-         },
-         ...
-         },
-         {
-         ...
-         }
-         ]
-         }
-         }
+             "kind": "youtube#searchListResponse",
+             "etag": "\"9Y5jTkxN1JET3y-M4wKMA5aK7Mk/WwcGgU_smaWbB8xz259IP-Koa74\"",
+             "nextPageToken": "CAUQAA",
+             "pageInfo": {
+              "totalResults": 1428,
+              "resultsPerPage": 5
+             },
+             "items": [
+              {
+               "kind": "youtube#searchResult",
+               "etag": "\"9Y5jTkxN1JET3y-M4wKMA5aK7Mk/ZK6AIbfdTb29-QPl3U_SlbEEkn4\"",
+               "id": {
+                "kind": "youtube#video",
+                "videoId": "c-lZPAttcU4"
+               },
+               "snippet": {
+                "publishedAt": "2015-02-25T12:00:00.000Z",
+                "channelId": "UCqgRbodod44OjLp9tqpgkPw",
+                "title": "[라이너TV] 식물 VS 좀비 26화 - 광합성의 힘으로 좀비를 물리치자!",
+                "description": "라이너가 식좀에 손을 댔다! 컬트적인 인기를 구가하며 디펜스 게임 계에 새 바람을 불러온 바로 그 게임! 그저 그런 좀비 디펜스가 아니다! 귀여운...",
+                "thumbnails": {
+                 "default": {
+                  "url": "https://i.ytimg.com/vi/c-lZPAttcU4/default.jpg"
+                 },
+                 "medium": {
+                  "url": "https://i.ytimg.com/vi/c-lZPAttcU4/mqdefault.jpg"
+                 },
+                 "high": {
+                  "url": "https://i.ytimg.com/vi/c-lZPAttcU4/hqdefault.jpg"
+                 }
+                },
+                "channelTitle": "TheRainerTV",
+                "liveBroadcastContent": "none"
+               }
+              },
          *
          */
         ArrayList<YouTubeVideoItem> entries = new ArrayList<YouTubeVideoItem>();
@@ -103,10 +94,9 @@ public class YouTubePlayListParser {
         for(int i = 0, maxlen =items.length(); i< maxlen; i++){
             JSONObject item = items.getJSONObject(i);
 
-            JSONObject id = item.getJSONObject("id");
-            String videoId = id.getString("videoId");
 
             JSONObject snippet = item.getJSONObject("snippet");
+            String videoId = getVideoId(item, snippet);
 
             String title = snippet.getString("title");
             String publishedAt = snippet.getString("publishedAt");
@@ -116,7 +106,7 @@ public class YouTubePlayListParser {
             // duration
             // view count
             entries.add(new YouTubeVideoItem(title, desc,
-                    videoId, publishedAt, "10", "10"));
+                    videoId, publishedAt, "None", "None"));
 
 
         }
@@ -125,6 +115,48 @@ public class YouTubePlayListParser {
 
         return entries;
     }
+
+
+    /**
+     *
+     * Because the data from playlistItem has different format for video ID, so
+     * this method is needed.
+     *
+     *
+     * json data from playlistItem
+     *
+     * {
+         ...
+         "items": [
+          {
+            ...
+           "id": "PLDFFwwxeSQ_pjIiEG4L-q5u1x2w58WkUj-v2pu7t0Kls",
+           "snippet": {
+            ...
+            "resourceId": {
+             "kind": "youtube#video",
+             "videoId": "wtTRZuOKpHs"
+            }
+           }
+          },
+     * @param item
+     * @param snippet
+     * @return
+     * @throws JSONException
+     */
+    private String getVideoId(JSONObject item, JSONObject snippet) throws JSONException {
+        String videoId = "";
+        String kind = item.getString("kind");
+        if(kind.equals(ParserInfo.DataKind.PLAYLIST_ITEM)){
+            JSONObject resourceId = snippet.getJSONObject("resourceId");
+            videoId = resourceId.getString("videoId");
+        }else{
+            JSONObject id = item.getJSONObject("id");
+            videoId = id.getString("videoId");
+        }
+        return videoId;
+    }
+
 
 
     public static YouTubeVideoItem parseStats(InputStream stream) throws IOException, JSONException {

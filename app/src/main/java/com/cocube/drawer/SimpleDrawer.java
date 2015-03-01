@@ -19,9 +19,9 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.cocube.MainFragment;
 import com.cocube.R;
 import com.cocube.like.LikeVideoListFragment;
-import com.cocube.otherplaylist.kaza.KazaMainFragment;
-import com.cocube.otherplaylist.mr.MrMainFragment;
-import com.cocube.otherplaylist.ongamenet.OnGameNetMainFragment;
+import com.cocube.otherplaylist.coctube2.CocTube2MainFragment;
+import com.cocube.otherplaylist.frenchcoc.FrCocChannelMainFragment;
+import com.cocube.otherplaylist.krcoc.KrCocChannelMainFragment;
 import com.cocube.otherplaylist.protato.ProtatoMainFragment;
 import com.cocube.sherlockadapter.SherlockActionBarDrawerToggle;
 
@@ -185,8 +185,6 @@ public class SimpleDrawer extends DrawerLayout implements
     }
 
 
-
-
     public SherlockActionBarDrawerToggle getDrawerToggle() {
         return mDrawerToggle;
     }
@@ -203,6 +201,7 @@ public class SimpleDrawer extends DrawerLayout implements
     public void onItemClick(AdapterView<?> parent, View view, int position,
                             long id) {
         // display view for selected nav drawer item
+
         processClick(position);
 
     }
@@ -212,6 +211,7 @@ public class SimpleDrawer extends DrawerLayout implements
      */
     public void processClick(int position) {
 
+
         // update the main content by replacing fragments
         switch (position) {
             case 0:
@@ -219,21 +219,25 @@ public class SimpleDrawer extends DrawerLayout implements
                     setUpSelectedFragment(position, new MainFragment());
                 }
                 break;
+
             case 1:
-                if (!(mFragment instanceof OnGameNetMainFragment)) {
-                    setUpSelectedFragment(position, new OnGameNetMainFragment());
+                if (!(mFragment instanceof CocTube2MainFragment)) {
+                    setUpSelectedFragment(position, new CocTube2MainFragment());
                 }
                 break;
+
             case 2:
-                if (!(mFragment instanceof KazaMainFragment)) {
-                        setUpSelectedFragment(position, new KazaMainFragment());
-                    }
-                break;
-            case 3:
-                if (!(mFragment instanceof MrMainFragment)) {
-                    setUpSelectedFragment(position, new MrMainFragment());
+                if (!(mFragment instanceof FrCocChannelMainFragment)) {
+                    setUpSelectedFragment(position, new FrCocChannelMainFragment());
                 }
                 break;
+
+            case 3:
+                if (!(mFragment instanceof KrCocChannelMainFragment)) {
+                    setUpSelectedFragment(position, new KrCocChannelMainFragment());
+                }
+                break;
+
 
             case 4:
                 if (!(mFragment instanceof ProtatoMainFragment)) {

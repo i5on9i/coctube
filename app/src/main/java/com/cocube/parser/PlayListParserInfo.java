@@ -17,7 +17,7 @@ public class PlayListParserInfo implements ParserInfo {
     //
     // Unfortunately, mobile web page costs more bytes
     //  - mobile url : http://m.imbc.com/m/PodCast/default.aspx?progCode=1000671100000100000
-    private String mId = "PLWQeRMoEALvrH6C_fx9m9Pca2dFIHjg9D";
+    private String mId = "UCTHIYR_sd_SFJrQ7N6eVJ5A";
     private static final String FEED_HOST = "https://gdata.youtube.com/feeds/api/playlists/";
 
 

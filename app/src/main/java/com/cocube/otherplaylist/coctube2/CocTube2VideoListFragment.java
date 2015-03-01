@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cocube;
+package com.cocube.otherplaylist.coctube2;
 
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
@@ -27,21 +27,23 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.cocube.LolTvItemAdapter;
+import com.cocube.LolTvPreference;
+import com.cocube.R;
 import com.cocube.like.LikeSingleton;
 import com.cocube.loadmore.LoadMoreScrollListener;
 import com.cocube.parser.LoadListAndParseAsyncTask;
 import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
-import com.cocube.parser.latest.BestCocRaidsLatestVideosParserInfo;
-import com.cocube.parser.latest.Coc101LatestVideosParserInfo;
-import com.cocube.parser.latest.GodSonLatestVideosParserInfo;
-import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
+import com.cocube.parser.coctube2.DaddyCocParserInfo;
+import com.cocube.parser.coctube2.Flammy5ParserInfo;
+import com.cocube.parser.coctube2.MasterOvParserInfo;
 import com.cocube.provider.LolTvContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListFragment extends SherlockFragment {
+public class CocTube2VideoListFragment extends SherlockFragment {
 
     private static final String ARG_POSITION = "position";
 
@@ -51,8 +53,8 @@ public class VideoListFragment extends SherlockFragment {
     private ParserInfo mParserInfo;
     private int mCurrentOrderBy = ParserInfo.SORT_TYPE_INIT;
 
-    public static VideoListFragment newInstance(int position) {
-        VideoListFragment f = new VideoListFragment();
+    public static CocTube2VideoListFragment newInstance(int position) {
+        CocTube2VideoListFragment f = new CocTube2VideoListFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
@@ -125,24 +127,25 @@ public class VideoListFragment extends SherlockFragment {
         ParserInfo pinfo;
 
 
+        // FIXME : ParserInfos are better to be passed as an argument
         switch (position) {
-            // check
-            // - string.xml
-            // - CocubePagerAdapter
+            // the count of position is determined by {@link KazaPagerAdapter.getCount()}
+
             case 0:
-                pinfo = new BestCocRaidsLatestVideosParserInfo();
+                pinfo = new MasterOvParserInfo();
                 break;
             case 1:
-                pinfo = new Coc101LatestVideosParserInfo();
+                pinfo = new DaddyCocParserInfo();
                 break;
-            case 2:
-                pinfo = new GodSonLatestVideosParserInfo();
-                break;
-            case 3:
-                pinfo = new HateKerrLatestVideosParserInfo();
-                break;
+//            case 2:
+//                pinfo = new Flammy5ParserInfo();
+//                break;
+//            case 3:
+//                pinfo = new KazaNAHighlightsPlayListHotClipParserInfo(1);
+//                break;
+
             default:
-                pinfo = new BestCocRaidsLatestVideosParserInfo();
+                pinfo = new MasterOvParserInfo();
                 break;
         }
         return pinfo;

@@ -18,7 +18,9 @@ public interface ParserInfo {
     //  - mobile url : http://m.imbc.com/m/PodCast/default.aspx?progCode=1000671100000100000
     String FEED_HOST = "https://www.googleapis.com/youtube/v3/";
     String FEED_TYPE_SEARCH = "search";
+    String FEED_TYPE_PLAYLIST = "playlistItems";
     String FEED_TYPE_VIDEOS = "videos";
+    String FEED_SEARCH_TYPE_VIDEO = "video";
     String API_KEY2 = "AIzaSyC4HsfTWNcT8qlTxK3DIh50cV4e5I9YT10";
     String API_KEY = "AIzaSyAF81XCZukw8ZEbf36dPKLIR5l3LiaZrBw";
 
@@ -31,4 +33,9 @@ public interface ParserInfo {
 
     void setStartIndex(int startIndex);
     void setNextPageToken(String token);
+
+
+    public static class DataKind{
+        public static final String PLAYLIST_ITEM = "youtube#playlistItem";
+    }
 }

@@ -32,8 +32,8 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.cocube.R;
 import com.cocube.parser.*;
 import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
-import com.cocube.parser.latest.LolTvHighRankSoloRankTagParserInfo;
-import com.cocube.parser.latest.LolTvHighlightTagParserInfo;
+import com.cocube.parser.latest.LolTvHighRankSoloRankChannelParserInfo;
+import com.cocube.parser.latest.LolTvHighlightChannelParserInfo;
 import com.cocube.parser.latest.LolTvMostViewedParserInfo;
 import com.cocube.provider.LolTvContract;
 
@@ -96,32 +96,7 @@ public class LikeVideoListFragment extends SherlockFragment
         return fragment;
     }
 
-    private ParserInfo getParserInfo(int position, int orderBy) {
 
-
-        ParserInfo pinfo;
-
-        switch (position) {
-            case 0:
-                pinfo = new HateKerrLatestVideosParserInfo(1);
-                mOrderBy = ParserInfo.SORT_TYPE_NONE;
-                break;
-            case 1:
-                pinfo = new LolTvMostViewedParserInfo(1);
-                mOrderBy = ParserInfo.SORT_TYPE_NONE;
-                break;
-            case 2:
-                pinfo = new LolTvHighlightTagParserInfo(1, orderBy);
-                break;
-            case 3:
-                pinfo = new LolTvHighRankSoloRankTagParserInfo(1, orderBy);
-                break;
-            default:
-                pinfo = new HateKerrLatestVideosParserInfo(1);
-                break;
-        }
-        return pinfo;
-    }
 
 
     @Override
