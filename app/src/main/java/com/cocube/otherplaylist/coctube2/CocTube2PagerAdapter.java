@@ -34,7 +34,7 @@ public class CocTube2PagerAdapter extends FragmentPagerAdapter {
         PAGE_TITLES.add(resources.getString(R.string.page_name_coctube2_1));
         PAGE_TITLES.add(resources.getString(R.string.page_name_coctube2_2));
         PAGE_TITLES.add(resources.getString(R.string.page_name_coctube2_3));
-//        PAGE_TITLES.add(resources.getString(R.string.page_name_coctube2_4));
+        PAGE_TITLES.add(resources.getString(R.string.page_name_coctube2_4));
 
     }
 

@@ -35,8 +35,9 @@ import com.cocube.loadmore.LoadMoreScrollListener;
 import com.cocube.parser.LoadListAndParseAsyncTask;
 import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
+import com.cocube.parser.coctube2.CocCamParserInfo;
 import com.cocube.parser.coctube2.DaddyCocParserInfo;
-import com.cocube.parser.coctube2.Flammy5ParserInfo;
+import com.cocube.parser.coctube2.HaVocGamingParserInfo;
 import com.cocube.parser.coctube2.MasterOvParserInfo;
 import com.cocube.provider.LolTvContract;
 
@@ -137,12 +138,12 @@ public class CocTube2VideoListFragment extends SherlockFragment {
             case 1:
                 pinfo = new DaddyCocParserInfo();
                 break;
-//            case 2:
-//                pinfo = new Flammy5ParserInfo();
-//                break;
-//            case 3:
-//                pinfo = new KazaNAHighlightsPlayListHotClipParserInfo(1);
-//                break;
+            case 2:
+                pinfo = new CocCamParserInfo();
+                break;
+            case 3:
+                pinfo = new HaVocGamingParserInfo();
+                break;
 
             default:
                 pinfo = new MasterOvParserInfo();
