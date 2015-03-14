@@ -4,26 +4,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.actionbarsherlock.app.ActionBar;
-import com.actionbarsherlock.app.SherlockFragment;
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.cocube.MainFragment;
 import com.cocube.R;
 import com.cocube.like.LikeVideoListFragment;
 import com.cocube.otherplaylist.coctube2.CocTube2MainFragment;
 import com.cocube.otherplaylist.frenchcoc.FrCocChannelMainFragment;
+import com.cocube.otherplaylist.germancoc.GermanCocChannelMainFragment;
 import com.cocube.otherplaylist.krcoc.KrCocChannelMainFragment;
 import com.cocube.otherplaylist.protato.ProtatoMainFragment;
-import com.cocube.sherlockadapter.SherlockActionBarDrawerToggle;
+
 
 import java.util.ArrayList;
 
@@ -31,7 +37,7 @@ import utils.IntentUtils;
 
 
 public class SimpleDrawer extends DrawerLayout implements
-        ListView.OnItemClickListener {
+        View.OnClickListener{
 
 
     private NavDrawerItem mLikeMenuItem;
@@ -40,12 +46,13 @@ public class SimpleDrawer extends DrawerLayout implements
     private final int HOME_ICON_PADDING = 5;
 
     private MenuDrawer mMenuDrawer;
-    private SherlockFragmentActivity mActivity;
-    private SherlockActionBarDrawerToggle mDrawerToggle;
+    private ActionBarActivity mActivity;
+    private ActionBarDrawerToggle mDrawerToggle;
     private ActionBar mActionBar;
     private int mContentFrameId = R.id.content_frame;
     private String[] mNavMenuTitles;
-    private SherlockFragment mFragment;
+    private Fragment mFragment;
+    private Toolbar mToolbar;
 
 
     public SimpleDrawer(Context context) {
@@ -70,20 +77,7 @@ public class SimpleDrawer extends DrawerLayout implements
 
     private void init(Context context, AttributeSet attrs, int defStyle) {
 
-        mActivity = (SherlockFragmentActivity) context;
-
-        mActionBar = mActivity.getSupportActionBar();
-        // enabling action bar app icon and behaving it as toggle button
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setHomeButtonEnabled(true);
-        ImageView iv = (ImageView) mActivity.findViewById(android.R.id.home);
-
-        setHomeIconPaddingLeftRight(iv, HOME_ICON_PADDING);
-
-
-        mDrawerToggle
-                = createActionBarDrawerToggle(mActivity, mActionBar);
-        this.setDrawerListener(mDrawerToggle);
+        mActivity = (ActionBarActivity) context;
 
 
     }
@@ -94,27 +88,29 @@ public class SimpleDrawer extends DrawerLayout implements
         iv.setPadding(paddingDp, 0, paddingDp, 0);
     }
 
-    private SherlockActionBarDrawerToggle createActionBarDrawerToggle(final SherlockFragmentActivity mActivity,
-                                                                      final ActionBar actionBar) {
+    private ActionBarDrawerToggle createActionBarDrawerToggle(final ActionBarActivity mActivity,
+                                                              final ActionBar actionBar,
+                                                              final Toolbar toolbar) {
 
 
-        SherlockActionBarDrawerToggle drawerToggle = new SherlockActionBarDrawerToggle(mActivity,
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(
+                mActivity,
                 this,
-                R.drawable.ic_drawer, //nav menu toggle icon
-                R.string.app_name, // nav drawer open - description for accessibility
-                R.string.app_name // nav drawer close - description for accessibility
-        ) {
+                toolbar,
+                R.string.app_name,  // nav drawer open - description for accessibility
+                R.string.app_name
+        ){
 
 
             public void onDrawerClosed(View view) {
-                actionBar.setTitle(mActivity.getTitle());
+                toolbar.setTitle(mActivity.getTitle());
                 // calling onPrepareOptionsMenu() to show action bar icons
                 mActivity.invalidateOptionsMenu();
 
             }
 
             public void onDrawerOpened(View drawerView) {
-                actionBar.setTitle(mActivity.getTitle());
+                toolbar.setTitle(mActivity.getTitle());
                 // calling onPrepareOptionsMenu() to hide action bar icons
                 mActivity.invalidateOptionsMenu();
 
@@ -134,26 +130,40 @@ public class SimpleDrawer extends DrawerLayout implements
         /**
          *  NOTICE
          *
-         *  Here, I use the convention
-         *  so the child(0) must be the Frame container
-         *  and the child(1) must be the drawer menu list view
-         *
          */
+
+        // Toolbar
+        mToolbar = (Toolbar) this.findViewById(R.id.tlbr_main);
+        mActivity.setSupportActionBar(mToolbar);
+        // mToolbar.setTitle() requires API-21
+
+        mDrawerToggle
+                = createActionBarDrawerToggle(mActivity, mActionBar, mToolbar);
+        this.setDrawerListener(mDrawerToggle);
 
 
         mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         // setting the nav drawer list adapter
         NavDrawerListAdapter adapter
-                = new NavDrawerListAdapter(this.getContext(), getDefaultDrawerMenuList(getResources()));
+                = new NavDrawerListAdapter(this.getContext(),
+                                            getDefaultDrawerMenuList(getResources()),
+                                            this);
 
 
-        mMenuDrawer = (MenuDrawer) getChildAt(1);
+        mMenuDrawer = (MenuDrawer) this.findViewById(R.id.list_slidermenu);
+
+
+        mMenuDrawer.setHasFixedSize(true);                            // Letting the system know that the list objects are of fixed size
+
+
+        // And passing the titles,icons,header view name, header view email,
+        // and header view profile picture
+        mMenuDrawer.setAdapter(adapter);              // Setting the adapter to RecyclerView
+
+        mMenuDrawer.setLayoutManager(new LinearLayoutManager(getContext()));   // Creating and Setting the layout Manager
+
 
         mMenuDrawer.setAdapter(adapter);
-        mMenuDrawer.setOnItemClickListener(this);
-
-        mContentFrameId = getChildAt(0).getId();
-
     }
 
     private ArrayList<NavDrawerItem> getDefaultDrawerMenuList(Resources resources) {
@@ -185,24 +195,30 @@ public class SimpleDrawer extends DrawerLayout implements
     }
 
 
-    public SherlockActionBarDrawerToggle getDrawerToggle() {
+    public ActionBarDrawerToggle getDrawerToggle() {
         return mDrawerToggle;
     }
 
-    public ListView getMenuDrawer() {
+    public RecyclerView getMenuDrawer() {
         return mMenuDrawer;
     }
 
 
     ////////////////////////////////////////////////////////////
-    ////    OnItemClickListener
+    ////    OnClickListener
     ////
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
+    public void onClick(View view) {
         // display view for selected nav drawer item
 
-        processClick(position);
+        CharSequence text = ((TextView)view.findViewById(R.id.title)).getText();
+        for(int i = 0, len = mNavMenuTitles.length ; i < len ; i++){
+            if(text.equals(mNavMenuTitles[i])){
+                processClick(i);
+                return;
+            }
+        }
+
 
     }
 
@@ -233,23 +249,36 @@ public class SimpleDrawer extends DrawerLayout implements
                 break;
 
             case 3:
+                if (!(mFragment instanceof GermanCocChannelMainFragment)) {
+                    setUpSelectedFragment(position, new GermanCocChannelMainFragment());
+                }
+                break;
+
+            case 4:
                 if (!(mFragment instanceof KrCocChannelMainFragment)) {
                     setUpSelectedFragment(position, new KrCocChannelMainFragment());
                 }
                 break;
 
 
-            case 4:
+            case 5:
                 if (!(mFragment instanceof ProtatoMainFragment)) {
                     setUpSelectedFragment(position, new ProtatoMainFragment());
                 }
                 break;
-            case 5:  // LIKE_MENU_ITEM_INDEX {@link MenuDrawer.refreshLikeCount}
+
+//            case 5:
+//                if (!(mFragment instanceof MyListPrefFragment)) {
+//                    setUpSelectedFragment(position, new MyListPrefFragment());
+//                }
+//                break;
+
+            case 6:  // LIKE_MENU_ITEM_INDEX {@link MenuDrawer.refreshLikeCount}
                 if (!(mFragment instanceof LikeVideoListFragment)) {
                     setUpSelectedFragment(position, new LikeVideoListFragment());
                 }
                 break;
-            case 6:
+            case 7:
                 Intent emailIntent = IntentUtils.getIntentComposeEmail(
                         mActivity.getString(R.string.report_email_address),
                         mActivity.getString(R.string.sending_a_memo_using));
@@ -276,7 +305,7 @@ public class SimpleDrawer extends DrawerLayout implements
 
     }
 
-    private void setUpSelectedFragment(int position, SherlockFragment fragment) {
+    private void setUpSelectedFragment(int position, Fragment fragment) {
 
         if (fragment == null) {
             Log.e("SimpleDrawer", "Error in creating fragment");
@@ -289,10 +318,11 @@ public class SimpleDrawer extends DrawerLayout implements
         closeDrawer(mMenuDrawer);
     }
 
+
     /**
      * @param newFragment : new fragment which will be injected
      */
-    private void replaceFragment(SherlockFragment newFragment) {
+    private void replaceFragment(Fragment newFragment) {
 
         mFragment = newFragment;
         FragmentManager fragmentManager = mActivity.getSupportFragmentManager();
@@ -325,4 +355,6 @@ public class SimpleDrawer extends DrawerLayout implements
         mMenuDrawer.setItemCheckedAndSelect(position);
         closeDrawer(mMenuDrawer);
     }
+
+
 }

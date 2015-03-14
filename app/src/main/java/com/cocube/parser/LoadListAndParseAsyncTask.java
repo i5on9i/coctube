@@ -1,9 +1,10 @@
 package com.cocube.parser;
 
 import android.os.AsyncTask;
+import android.support.v4.app.FragmentActivity;
+
 import android.util.Log;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.cocube.LolTvItemAdapter;
 
 import org.json.JSONException;
@@ -19,12 +20,12 @@ import utils.NetworkUtils;
 public class LoadListAndParseAsyncTask extends AsyncTask<Void, Void, List> {
 
 
-    private static final String TAG = "LoadListAndParseAsyncTask";
+    private static final String TAG = "LoadListAndParse...";
     private ParserInfo mParserInfo;
     private int mMaxResult = 0;
 
 
-    private SherlockFragmentActivity mActivity;
+    private FragmentActivity mActivity;
     private final LolTvItemAdapter mAdapter;
 
 
@@ -32,7 +33,7 @@ public class LoadListAndParseAsyncTask extends AsyncTask<Void, Void, List> {
     private CountDownLatch mLatch;
 
 
-    public LoadListAndParseAsyncTask(SherlockFragmentActivity activity, LolTvItemAdapter adapter,
+    public LoadListAndParseAsyncTask(FragmentActivity activity, LolTvItemAdapter adapter,
                                      ParserInfo parserInfo) {
         mActivity = activity;
         mAdapter = adapter;
@@ -53,7 +54,6 @@ public class LoadListAndParseAsyncTask extends AsyncTask<Void, Void, List> {
     public void setParserInfo(ParserInfo parserInfo) {
         this.mParserInfo = parserInfo;
     }
-
 
 
     //--------------------------------------------------------

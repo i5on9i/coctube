@@ -20,13 +20,15 @@ import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
 import android.os.Bundle;
 import android.os.RemoteException;
+
+
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.cocube.like.LikeSingleton;
 import com.cocube.loadmore.LoadMoreScrollListener;
 import com.cocube.parser.LoadListAndParseAsyncTask;
@@ -34,14 +36,14 @@ import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
 import com.cocube.parser.latest.BestCocRaidsLatestVideosParserInfo;
 import com.cocube.parser.latest.Coc101LatestVideosParserInfo;
+import com.cocube.parser.latest.CocAttacksParserInfo;
 import com.cocube.parser.latest.GodSonLatestVideosParserInfo;
-import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
 import com.cocube.provider.LolTvContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class VideoListFragment extends SherlockFragment {
+public class VideoListFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
 
@@ -68,9 +70,9 @@ public class VideoListFragment extends SherlockFragment {
         mLolTvItemAdapter = new LolTvItemAdapter();
 
 
-        mParserInfo = getParserInfo(mPosition, LolTvPreference.getOrderBy(getSherlockActivity()));
+        mParserInfo = getParserInfo(mPosition, LolTvPreference.getOrderBy(getActivity()));
 //        TODO : do the below only when the initLoader is not loaded
-//        mAsyncTask = new LoadListAndParseAsyncTask(getSherlockActivity(), mLolTvItemAdapter);
+//        mAsyncTask = new LoadListAndParseAsyncTask(getActivity(), mLolTvItemAdapter);
 //
     }
 
@@ -79,8 +81,8 @@ public class VideoListFragment extends SherlockFragment {
 
         View fragment = inflater.inflate(R.layout.list_fragment, container, false);
 
-        int newOrderBy = LolTvPreference.getOrderBy(getSherlockActivity());
-        if(isOrderChanged(mPosition, newOrderBy)){
+        int newOrderBy = LolTvPreference.getOrderBy(getActivity());
+        if (isOrderChanged(mPosition, newOrderBy)) {
             mParserInfo = getParserInfo(mPosition, newOrderBy);
             initList(mParserInfo, newOrderBy);
         }
@@ -90,22 +92,20 @@ public class VideoListFragment extends SherlockFragment {
 
         ListView lv = (ListView) fragment.findViewById(R.id.listview_of_reports);
         lv.setAdapter(mLolTvItemAdapter);
-        lv.setOnItemClickListener((AdapterView.OnItemClickListener) getSherlockActivity());
+        lv.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
 
         LoadMoreScrollListener scrollListener = new LoadMoreScrollListener(mLolTvItemAdapter, mParserInfo);
         lv.setOnScrollListener(scrollListener);
-
 
 
         return fragment;
     }
 
 
-
     private void initList(ParserInfo parserInfo, int newOrderBy) {
 
         LoadListAndParseAsyncTask task =
-                new LoadListAndParseAsyncTask(getSherlockActivity(), mLolTvItemAdapter, parserInfo);
+                new LoadListAndParseAsyncTask(getActivity(), mLolTvItemAdapter, parserInfo);
 
         task.execute();
 
@@ -114,7 +114,7 @@ public class VideoListFragment extends SherlockFragment {
 
 
     private boolean isOrderChanged(int pos, int newOrderBy) {
-        if(mCurrentOrderBy == ParserInfo.SORT_TYPE_NONE)
+        if (mCurrentOrderBy == ParserInfo.SORT_TYPE_NONE)
             return false;
         return mCurrentOrderBy != newOrderBy;
     }
@@ -139,7 +139,7 @@ public class VideoListFragment extends SherlockFragment {
                 pinfo = new GodSonLatestVideosParserInfo();
                 break;
             case 3:
-                pinfo = new HateKerrLatestVideosParserInfo();
+                pinfo = new CocAttacksParserInfo();
                 break;
             default:
                 pinfo = new BestCocRaidsLatestVideosParserInfo();
@@ -190,7 +190,7 @@ public class VideoListFragment extends SherlockFragment {
             ArrayList<ContentProviderOperation> ops = getContentProviderOperations();
 
             try {
-                getSherlockActivity().getContentResolver().applyBatch(LolTvContract.AUTHORITY, ops);
+                getActivity().getContentResolver().applyBatch(LolTvContract.AUTHORITY, ops);
             } catch (RemoteException e) {
                 e.printStackTrace();
             } catch (OperationApplicationException e) {

@@ -1,13 +1,14 @@
 package com.cocube.drawer;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.cocube.R;
 import com.cocube.like.LikeSingleton;
 
-public class MenuDrawer extends ListView {
+public class MenuDrawer extends android.support.v7.widget.RecyclerView {
 
 
     private int prevSelection = 0;
@@ -33,6 +34,8 @@ public class MenuDrawer extends ListView {
 
     void init() {
         navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+
+
         getLikeMenuIndex();
 
     }
@@ -56,8 +59,9 @@ public class MenuDrawer extends ListView {
     }
 
     public void setItemCheckedAndSelect(int position) {
-        setItemChecked(position, true);
-        setSelection(position);
+//        TODO : 2015-03-10
+//        setItemChecked(position, true);
+//        setSelection(position);
 
         setAdapterSelect(position);
 
@@ -79,7 +83,6 @@ public class MenuDrawer extends ListView {
 
         setItemCheckedAndSelect(prevSelection);
     }
-
 
 }
 

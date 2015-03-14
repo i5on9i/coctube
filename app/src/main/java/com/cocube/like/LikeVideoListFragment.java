@@ -18,6 +18,7 @@ package com.cocube.like;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -28,16 +29,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.cocube.R;
-import com.cocube.parser.*;
-import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
-import com.cocube.parser.latest.LolTvHighRankSoloRankChannelParserInfo;
-import com.cocube.parser.latest.LolTvHighlightChannelParserInfo;
-import com.cocube.parser.latest.LolTvMostViewedParserInfo;
+import com.cocube.parser.LoadListAndParseAsyncTask;
+import com.cocube.parser.ParserInfo;
 import com.cocube.provider.LolTvContract;
 
-public class LikeVideoListFragment extends SherlockFragment
+public class LikeVideoListFragment extends Fragment
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "LikeVideoListFragment";
     private static final String ARG_POSITION = "position";
@@ -69,11 +66,11 @@ public class LikeVideoListFragment extends SherlockFragment
         mLikeItemAdapter = new LikeItemAdapter();
 
 
-//        mOrderBy = LolTvPreference.getOrderBy(getSherlockActivity());
+//        mOrderBy = LolTvPreference.getOrderBy(getActivity());
 //        mParserInfo = getParserInfo(mPosition, mOrderBy);
 //
 //        // TODO : do the below only when the initLoader is not loaded
-//        mAsyncTask = new LoadListAndParseAsyncTask(getSherlockActivity(), mLikeItemAdapter, mParserInfo);
+//        mAsyncTask = new LoadListAndParseAsyncTask(getActivity(), mLikeItemAdapter, mParserInfo);
 //        mAsyncTask.execute();
 
 
@@ -88,15 +85,13 @@ public class LikeVideoListFragment extends SherlockFragment
 
         ListView lv = (ListView) fragment.findViewById(R.id.listview_of_reports);
         lv.setAdapter(mLikeItemAdapter);
-        lv.setOnItemClickListener((AdapterView.OnItemClickListener) getSherlockActivity());
+        lv.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
 
         mLikeItemAdapter.replaceData(LikeSingleton.getInstance().getValues());
 
 
         return fragment;
     }
-
-
 
 
     @Override
@@ -144,7 +139,7 @@ public class LikeVideoListFragment extends SherlockFragment
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
         Log.d(TAG, "onCreateLoader()");
-        return new CursorLoader(getSherlockActivity(), LolTvContract.LikeItems.CONTENT_URI,
+        return new CursorLoader(getActivity(), LolTvContract.LikeItems.CONTENT_URI,
                 LolTvContract.LikeItems.PROJECTION_ALL, null, null, null);
 
 

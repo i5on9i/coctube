@@ -19,24 +19,27 @@ package com.cocube;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.actionbarsherlock.app.SherlockFragment;
-import com.cocube.viewpager.PagerSlidingTabStrip;
+
+import com.astuetz.PagerSlidingTabStrip;
+import com.cocube.slidingtab.SlidingTabLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-public class MainFragment extends SherlockFragment{
+public class MainFragment extends Fragment {
 
     private final Handler handler = new Handler();
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private CocubePagerAdapter adapter;
+    private SlidingTabLayout mSlidingTabLayout;
 
     private Drawable oldBackground = null;
     private int currentColor = 0xFF2d3586;
@@ -59,7 +62,7 @@ public class MainFragment extends SherlockFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View fragment = inflater.inflate(R.layout.main_fragment, container, false);
+        View fragment = inflater.inflate(R.layout.fragment_main, container, false);
 
         loadAdView(fragment);
 
@@ -73,18 +76,13 @@ public class MainFragment extends SherlockFragment{
         mAdView.loadAd(adRequest);
     }
 
-
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        setUpPager(view);
+//        setUpTabColor();
+    }
 
-
-//        setContentView(R.layout.main_with_menu);
-
-        // tabs --> pager --> adapter
-
-        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
-
+    void setUpPager(View view){
         pager = (ViewPager) getView().findViewById(R.id.pager);
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
                 getResources().getDisplayMetrics());
@@ -94,9 +92,51 @@ public class MainFragment extends SherlockFragment{
         pager.setAdapter(adapter);
         pager.setCurrentItem(mCurrentPagerItemIndex);
 
-        tabs.setViewPager(pager);
+        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.tabs);
+        mSlidingTabLayout.setViewPager(pager);
+
+//        REMOVE_PAGERSLIDINGTABSTRIP
+//        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
+//        tabs.setViewPager(pager);
+    }
+
+    void setUpTabColor(){
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return MainFragment.this.getResources().getColor(R.color.tab_indicator);
+            }
+            @Override
+            public int getDividerColor(int position) {
+                return MainFragment.this.getResources().getColor(R.color.tab_underline);
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+        // tabs --> pager --> adapter
+
+//        pager = (ViewPager) getView().findViewById(R.id.pager);
+//        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
+//                getResources().getDisplayMetrics());
+//        pager.setPageMargin(pageMargin);
+//        adapter = new CocubePagerAdapter(getView().getContext(), getChildFragmentManager());
+//
+//        pager.setAdapter(adapter);
+//        pager.setCurrentItem(mCurrentPagerItemIndex);
+//
+//        mSlidingTabLayout = (SlidingTabLayout) getView().findViewById(R.id.sliding_tabs);
+//        mSlidingTabLayout.setViewPager(pager);
+
+//        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
+//        tabs.setViewPager(pager);
 
     }
+
 
     @Override
     public void onResume() {
@@ -113,7 +153,7 @@ public class MainFragment extends SherlockFragment{
     }
 
 
-    public void notifyDataSetChanged(){
+    public void notifyDataSetChanged() {
         adapter.notifyDataSetChanged();
     }
 

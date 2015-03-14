@@ -7,7 +7,7 @@
     <string name="action_sort_by_time">최신순 정렬</string>
     <string name="action_sort_by_hit">조회순 정렬</string>
 
-    <string name="report_email_address">tpwndksl85@gmail.com</string>
+    <string name="report_email_address">gaedduck@gmail.com</string>
     <string name="sending_a_memo_using">제안 보내기 ...</string>
 
 
@@ -18,7 +18,7 @@
     <string name="page_name_1">Best Clash Of Clan Raids</string>
     <string name="page_name_2">Clash of Clan 101</string>
     <string name="page_name_3">God Son</string>
-    <string name="page_name_4">HateKerr</string>
+    <string name="page_name_4">Clash of Clans Attacks</string>
 
 
 
@@ -38,6 +38,11 @@
     <string name="page_name_frcoc_3">SauronCoC</string>
     <string name="page_name_frcoc_4">KawaboumgaCoC </string>
 
+    <string name="page_name_germancoc_1">Mrmobilefanboy</string>
+    <string name="page_name_germancoc_2">DonJon</string>
+    <string name="page_name_germancoc_3">Tobi Kaiser - QuantumsWeb</string>
+    <string name="page_name_germancoc_4">HateKerr</string>
+
     <string name="page_name_protato_1">Top5 Plays</string>
     <string name="page_name_protato_2">Plays Teamwork</string>
 
@@ -45,10 +50,11 @@
     <string name="korean_list">한국 CoC 채널</string>
     <string name="coctube2_list">Coc Tube 2nd</string>
     <string name="french_list">프랑스 Coc 채널</string>
+    <string name="german_list">독일 Coc 채널</string>
     <string name="protato_list">해외LOL TOP5시리즈2</string>
 
 
-
+    <string name="mylist">마이 리스트</string>
     <string name="like">즐겨찾기</string>
     <string name="setting">설정</string>
     <string name="desc_list_item_icon">아이템 아이콘</string>
@@ -60,9 +66,11 @@
         <item >@string/app_name</item>
         <item >@string/coctube2_list</item>
         <item >@string/french_list</item>
+        <item >@string/german_list</item>
         <item >@string/korean_list</item>
 
         <!--<item >@string/protato_list</item>-->
+        <item >@string/mylist</item>
         <item >@string/like</item>
         <item >@string/report</item>
         <!--<item >@string/video_list_setting</item>-->
