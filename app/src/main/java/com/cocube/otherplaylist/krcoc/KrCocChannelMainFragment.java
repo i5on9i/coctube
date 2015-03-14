@@ -19,17 +19,19 @@ package com.cocube.otherplaylist.krcoc;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import com.astuetz.PagerSlidingTabStrip;
 import com.cocube.R;
-import com.cocube.viewpager.PagerSlidingTabStrip;
+import com.cocube.otherplaylist.frenchcoc.FrCocChannelPagerAdapter;
+import com.cocube.slidingtab.SlidingTabLayout;
 
-public class KrCocChannelMainFragment extends SherlockFragment{
+public class KrCocChannelMainFragment extends Fragment {
 
     private final Handler handler = new Handler();
 
@@ -44,6 +46,7 @@ public class KrCocChannelMainFragment extends SherlockFragment{
     private int mCurrentPage;
 
     private int mCurrentPagerItemIndex = 0;
+    private SlidingTabLayout mSlidingTabLayout;
 
 
     @Override
@@ -58,24 +61,21 @@ public class KrCocChannelMainFragment extends SherlockFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View fragment = inflater.inflate(R.layout.main_fragment, container, false);
+        View fragment = inflater.inflate(R.layout.fragment_main, container, false);
 
 
         return fragment;
     }
 
 
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        setUpPager(view);
+        setUpTabColor();
+    }
 
-
-//        setContentView(R.layout.main_with_menu);
-
-        // tabs --> pager --> adapter
-
-        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
-
+    void setUpPager(View view){
         pager = (ViewPager) getView().findViewById(R.id.pager);
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
                 getResources().getDisplayMetrics());
@@ -85,7 +85,52 @@ public class KrCocChannelMainFragment extends SherlockFragment{
         pager.setAdapter(adapter);
         pager.setCurrentItem(mCurrentPagerItemIndex);
 
-        tabs.setViewPager(pager);
+        mSlidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.tabs);
+        mSlidingTabLayout.setViewPager(pager);
+
+//        REMOVE_PAGERSLIDINGTABSTRIP
+//        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
+//        tabs.setViewPager(pager);
+    }
+
+    void setUpTabColor(){
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return KrCocChannelMainFragment.this.getResources().getColor(R.color.tab_indicator);
+            }
+            @Override
+            public int getDividerColor(int position) {
+                return KrCocChannelMainFragment.this.getResources().getColor(R.color.tab_underline);
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+
+//        setContentView(R.layout.activity_main_with_menu);
+
+        // tabs --> pager --> adapter
+
+
+
+//        pager = (ViewPager) getView().findViewById(R.id.pager);
+//        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
+//                getResources().getDisplayMetrics());
+//        pager.setPageMargin(pageMargin);
+//        adapter = new KrCocChannelPagerAdapter(getView().getContext(), getChildFragmentManager());
+//
+//        pager.setAdapter(adapter);
+//        pager.setCurrentItem(mCurrentPagerItemIndex);
+
+//        mSlidingTabLayout = (SlidingTabLayout) getView().findViewById(R.id.sliding_tabs);
+//        mSlidingTabLayout.setViewPager(pager);
+
+//        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
+//        tabs.setViewPager(pager);
 
     }
 
@@ -104,7 +149,7 @@ public class KrCocChannelMainFragment extends SherlockFragment{
     }
 
 
-    public void notifyDataSetChanged(){
+    public void notifyDataSetChanged() {
         adapter.notifyDataSetChanged();
     }
 

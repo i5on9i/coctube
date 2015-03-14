@@ -18,6 +18,7 @@ package com.cocube.otherplaylist;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -27,16 +28,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.cocube.R;
-import com.cocube.parser.*;
-import com.cocube.parser.latest.HateKerrLatestVideosParserInfo;
+import com.cocube.parser.LoadListAndParseAsyncTask;
+import com.cocube.parser.ParserInfo;
+import com.cocube.parser.latest.CocAttacksParserInfo;
 import com.cocube.parser.latest.LolTvHighRankSoloRankChannelParserInfo;
 import com.cocube.parser.latest.LolTvHighlightChannelParserInfo;
 import com.cocube.parser.latest.LolTvMostViewedParserInfo;
 import com.cocube.provider.LolTvContract;
 
-public class VideoPlayListFragment extends SherlockFragment
+public class VideoPlayListFragment extends Fragment
         implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "VideoPlayListFragment";
     private static final String ARG_POSITION = "position";
@@ -68,11 +69,11 @@ public class VideoPlayListFragment extends SherlockFragment
 
         setRetainInstance(true);
         mVideoPlayListItemAdapter = new VideoPlayListItemAdapter();
-//        mOrderBy = LolTvPreference.getOrderBy(getSherlockActivity());
+//        mOrderBy = LolTvPreference.getOrderBy(getActivity());
 //        mParserInfo = getParserInfo(mPosition, mOrderBy);
 //
 //        // TODO : do the below only when the initLoader is not loaded
-//        mAsyncTask = new LoadListAndParseAsyncTask(getSherlockActivity(), mVideoPlayListItemAdapter, mParserInfo);
+//        mAsyncTask = new LoadListAndParseAsyncTask(getActivity(), mVideoPlayListItemAdapter, mParserInfo);
 //        mAsyncTask.execute();
 
 
@@ -86,8 +87,7 @@ public class VideoPlayListFragment extends SherlockFragment
 
         ListView lv = (ListView) fragment.findViewById(R.id.listview_of_videolist);
         lv.setAdapter(mVideoPlayListItemAdapter);
-        //lv.setOnItemClickListener((AdapterView.OnItemClickListener) getSherlockActivity());
-
+        //lv.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
 
 
         return fragment;
@@ -100,7 +100,7 @@ public class VideoPlayListFragment extends SherlockFragment
 
         switch (position) {
             case 0:
-                pinfo = new HateKerrLatestVideosParserInfo();
+                pinfo = new CocAttacksParserInfo();
                 mOrderBy = ParserInfo.SORT_TYPE_NONE;
                 break;
             case 1:
@@ -114,7 +114,7 @@ public class VideoPlayListFragment extends SherlockFragment
                 pinfo = new LolTvHighRankSoloRankChannelParserInfo(1, orderBy);
                 break;
             default:
-                pinfo = new HateKerrLatestVideosParserInfo();
+                pinfo = new CocAttacksParserInfo();
                 break;
         }
         return pinfo;
@@ -160,11 +160,10 @@ public class VideoPlayListFragment extends SherlockFragment
     }
 
 
-
     private void initLoader() {
 
 
-        LoaderManager loaderManager = getSherlockActivity().getSupportLoaderManager();
+        LoaderManager loaderManager = getActivity().getSupportLoaderManager();
         final Loader<Cursor> loader = loaderManager.getLoader(LOADER_ID);
         if (loader == null || loader.isReset()) {
             loaderManager.initLoader(LOADER_ID, null, this);
@@ -182,7 +181,7 @@ public class VideoPlayListFragment extends SherlockFragment
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
         Log.d(TAG, "onCreateLoader()");
-        return new CursorLoader(getSherlockActivity(), LolTvContract.PlayLists.CONTENT_URI,
+        return new CursorLoader(getActivity(), LolTvContract.PlayLists.CONTENT_URI,
                 LolTvContract.PlayLists.PROJECTION_ALL, null, null, null);
 
 

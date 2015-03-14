@@ -20,13 +20,13 @@ import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
 import android.os.Bundle;
 import android.os.RemoteException;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.actionbarsherlock.app.SherlockFragment;
 import com.cocube.LolTvItemAdapter;
 import com.cocube.LolTvPreference;
 import com.cocube.R;
@@ -44,7 +44,7 @@ import com.cocube.provider.LolTvContract;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CocTube2VideoListFragment extends SherlockFragment {
+public class CocTube2VideoListFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
 
@@ -71,7 +71,7 @@ public class CocTube2VideoListFragment extends SherlockFragment {
         mLolTvItemAdapter = new LolTvItemAdapter();
 
 
-        mParserInfo = getParserInfo(mPosition, LolTvPreference.getOrderBy(getSherlockActivity()));
+        mParserInfo = getParserInfo(mPosition, LolTvPreference.getOrderBy(getActivity()));
 //        TODO : do the below only when the initLoader is not loaded
 //        mAsyncTask = new LoadListAndParseAsyncTask(getSherlockActivity(), mLolTvItemAdapter);
 //
@@ -82,8 +82,8 @@ public class CocTube2VideoListFragment extends SherlockFragment {
 
         View fragment = inflater.inflate(R.layout.list_fragment, container, false);
 
-        int newOrderBy = LolTvPreference.getOrderBy(getSherlockActivity());
-        if(isOrderChanged(mPosition, newOrderBy)){
+        int newOrderBy = LolTvPreference.getOrderBy(getActivity());
+        if (isOrderChanged(mPosition, newOrderBy)) {
             mParserInfo = getParserInfo(mPosition, newOrderBy);
             initList(mParserInfo, newOrderBy);
         }
@@ -93,22 +93,20 @@ public class CocTube2VideoListFragment extends SherlockFragment {
 
         ListView lv = (ListView) fragment.findViewById(R.id.listview_of_reports);
         lv.setAdapter(mLolTvItemAdapter);
-        lv.setOnItemClickListener((AdapterView.OnItemClickListener) getSherlockActivity());
+        lv.setOnItemClickListener((AdapterView.OnItemClickListener) getActivity());
 
         LoadMoreScrollListener scrollListener = new LoadMoreScrollListener(mLolTvItemAdapter, mParserInfo);
         lv.setOnScrollListener(scrollListener);
-
 
 
         return fragment;
     }
 
 
-
     private void initList(ParserInfo parserInfo, int newOrderBy) {
 
         LoadListAndParseAsyncTask task =
-                new LoadListAndParseAsyncTask(getSherlockActivity(), mLolTvItemAdapter, parserInfo);
+                new LoadListAndParseAsyncTask(getActivity(), mLolTvItemAdapter, parserInfo);
 
         task.execute();
 
@@ -117,7 +115,7 @@ public class CocTube2VideoListFragment extends SherlockFragment {
 
 
     private boolean isOrderChanged(int pos, int newOrderBy) {
-        if(mCurrentOrderBy == ParserInfo.SORT_TYPE_NONE)
+        if (mCurrentOrderBy == ParserInfo.SORT_TYPE_NONE)
             return false;
         return mCurrentOrderBy != newOrderBy;
     }
@@ -194,7 +192,7 @@ public class CocTube2VideoListFragment extends SherlockFragment {
             ArrayList<ContentProviderOperation> ops = getContentProviderOperations();
 
             try {
-                getSherlockActivity().getContentResolver().applyBatch(LolTvContract.AUTHORITY, ops);
+                getActivity().getContentResolver().applyBatch(LolTvContract.AUTHORITY, ops);
             } catch (RemoteException e) {
                 e.printStackTrace();
             } catch (OperationApplicationException e) {

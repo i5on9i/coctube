@@ -1,26 +1,10 @@
-/*
- * Copyright (C) 2013 Andreas Stuetz <andreas.stuetz@gmail.com>
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.cocube;
 
-import android.annotation.TargetApi;
 import android.content.ContentProviderOperation;
 import android.content.OperationApplicationException;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,22 +12,17 @@ import android.os.Handler;
 import android.os.RemoteException;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.cocube.sherlockadapter.SherlockActionBarDrawerToggle;
-import com.cocube.videostats.VideoStatsLoader;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.youtube.player.YouTubeApiServiceUtil;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubeIntents;
 import com.cocube.drawer.SimpleDrawer;
 import com.cocube.imageloader.ImageLoader;
 import com.cocube.like.LikeLoaderCallback;
@@ -51,16 +30,19 @@ import com.cocube.like.LikeSingleton;
 import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
 import com.cocube.provider.LolTvContract;
+import com.cocube.videostats.VideoStatsLoader;
+import com.google.android.youtube.player.YouTubeApiServiceUtil;
+import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeIntents;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends SherlockFragmentActivity
+
+public class MainActivity extends ActionBarActivity
         implements AdapterView.OnItemClickListener {
 
     private final Handler handler = new Handler();
-
-
     private CocubePagerAdapter adapter;
 
     private Drawable oldBackground = null;
@@ -71,15 +53,14 @@ public class MainActivity extends SherlockFragmentActivity
 
     // Drawer Menu
     private SimpleDrawer mDrawerLayout;
-    private SherlockActionBarDrawerToggle mDrawerToggle;
-    private ListView mMenuDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
     private final int LOADER_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-        setContentView(R.layout.main_with_menu);
+
+        setContentView(R.layout.activity_main);
 
 
         mDrawerLayout = (SimpleDrawer) findViewById(R.id.drawer_layout);
@@ -90,17 +71,52 @@ public class MainActivity extends SherlockFragmentActivity
 
         }
 
-        mMenuDrawer = mDrawerLayout.getMenuDrawer();
-
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(getResources().getColor(R.color.statusBarColor));
+        }
 
         determineYouTubeState();
         ImageLoader.getInstance().init(this);
         LikeSingleton.getInstance().init(this);
         VideoStatsLoader.getInstance().init(this);
 
+//
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
+//        if (savedInstanceState == null) {
+//
+//        }
+//
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.tlbr_main);
+//        setSupportActionBar(toolbar);
+//        // toolbar.setTitle() requires API-21
+//
+//        mDrawerLayout = (DrawerLayout) findViewById(R.id.dl_main);
+//        ListView drawerListView = (ListView)mDrawerLayout.findViewById(R.id.lv_left_drawer);
+//        drawerListView.setAdapter();
+//        mDrawerLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        mDrawerToggle = new ActionBarDrawerToggle(this,
+//                mDrawerLayout,
+//                toolbar,
+//                R.string.app_name,
+//                R.string.app_name);
+//        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//
+//
+//        determineYouTubeState();
+//        ImageLoader.getInstance().init(this);
+//        LikeSingleton.getInstance().init(this);
+//        VideoStatsLoader.getInstance().init(this);
     }
+
 
     private void determineYouTubeState() {
         if (YouTubeIntents.isYouTubeInstalled(this)) {
@@ -159,6 +175,7 @@ public class MainActivity extends SherlockFragmentActivity
         }
     }
 
+
     private static ArrayList<ContentProviderOperation> getContentProviderOperations() {
         ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 
@@ -191,6 +208,7 @@ public class MainActivity extends SherlockFragmentActivity
         // @note : showLastNotes() is run in the onLoadFinished()
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -219,6 +237,18 @@ public class MainActivity extends SherlockFragmentActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+
 
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
@@ -278,54 +308,13 @@ public class MainActivity extends SherlockFragmentActivity
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private void changeColor(int newColor) {
-
-//		tabs.setIndicatorColor(newColor);
-//
-//		// change ActionBar color just if an ActionBar is available
-//		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-//
-//			Drawable colorDrawable = new ColorDrawable(newColor);
-//			Drawable bottomDrawable = getResources().getDrawable(R.drawable.actionbar_bottom);
-//			LayerDrawable ld = new LayerDrawable(new Drawable[] { colorDrawable, bottomDrawable });
-//
-//			if (oldBackground == null) {
-//
-//				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//					ld.setCallback(drawableCallback);
-//				} else {
-//					getSupportActionBar().setBackgroundDrawable(ld);
-//				}
-//
-//			} else {
-//
-//				TransitionDrawable td = new TransitionDrawable(new Drawable[] { oldBackground, ld });
-//
-//				// workaround for broken ActionBarContainer drawable handling on
-//				// pre-API 17 builds
-//				// https://github.com/android/platform_frameworks_base/commit/a7cc06d82e45918c37429a59b14545c6a57db4e4
-//				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
-//					td.setCallback(drawableCallback);
-//				} else {
-//                    getSupportActionBar().setBackgroundDrawable(td);
-//				}
-//
-//				td.startTransition(200);
-//
-//			}
-//
-//			oldBackground = ld;
-//
-//			// http://stackoverflow.com/questions/11002691/actionbar-setbackgrounddrawable-nulling-background-from-thread-handler
-//            getSupportActionBar().setDisplayShowTitleEnabled(false);
-//            getSupportActionBar().setDisplayShowTitleEnabled(true);
-//
-//		}
-//
-//		currentColor = newColor;
-
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(Gravity.START | Gravity.LEFT)) {
+            mDrawerLayout.closeDrawers();
+            return;
+        }
+        super.onBackPressed();
     }
 
 
@@ -375,25 +364,6 @@ public class MainActivity extends SherlockFragmentActivity
 
 
     }
-
-
-    private Drawable.Callback drawableCallback = new Drawable.Callback() {
-        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-        @Override
-        public void invalidateDrawable(Drawable who) {
-            getSupportActionBar().setBackgroundDrawable(who);
-        }
-
-        @Override
-        public void scheduleDrawable(Drawable who, Runnable what, long when) {
-            handler.postAtTime(what, when);
-        }
-
-        @Override
-        public void unscheduleDrawable(Drawable who, Runnable what) {
-            handler.removeCallbacks(what);
-        }
-    };
 
 
 }

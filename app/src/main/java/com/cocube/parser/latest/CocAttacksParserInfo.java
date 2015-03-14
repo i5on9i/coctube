@@ -9,12 +9,12 @@ import com.cocube.parser.ChannelParserInfo;
  * Time: 오전 12:53
  * To change this template use File | Settings | File Templates.
  */
-public class HateKerrLatestVideosParserInfo extends ChannelParserInfo {
+public class CocAttacksParserInfo extends ChannelParserInfo {
 
     //    private static final String CHANNEL_ID = "UC4Vxtl8TqjlsPcHzlO7UoIg";    // https://www.youtube.com/channel/UC4Vxtl8TqjlsPcHzlO7UoIg
-    private static final String CHANNEL_ID = "UCZAGk8POTWog0LBKMDRW99A";    // https://www.youtube.com/channel/UC4Vxtl8TqjlsPcHzlO7UoIg
+    private static final String CHANNEL_ID = "UC2l8G7UE41Vaby59Dfg6r3w";    // https://www.youtube.com/channel/UC4Vxtl8TqjlsPcHzlO7UoIg
 
-    public HateKerrLatestVideosParserInfo() {
+    public CocAttacksParserInfo() {
         super(CHANNEL_ID);
     }
 

@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="background_window">#FFE5E5E5</color>
+
+    <color name="darkPrimaryColor">#FFA000</color>
+    <color name="primaryColor">#FFC107</color>
+    <color name="lightPrimaryColor">#FFECB3</color>
+    <color name="textPrimaryColor">#212121</color>
+    <color name="accentColor">#FFEB3B</color>
+    <color name="primaryTextColor">#212121</color>
+    <color name="secondaryTextColor">#727272</color>
+    <color name="dividerColor">#B6B6B6</color>
+    <color name="statusBarColor">#fff1b507</color>
 
 
+
+    <!-- flat-buttons -->
+    <color name="flat_pressed">#66999999</color>
+    <color name="flat_disabled_text">#40000000</color>
+    <color name="flat_normal_text">@color/textPrimaryColor</color>
 
 
     <!--action bar-->
@@ -10,8 +24,8 @@
     <color name="action_bar_color">#ffffd800</color>
     <color name="action_bar_text">#ff1f1f1f</color>
     <color name="action_bar_pressed">#ffffe84d</color>
-
-
+    
+    
     <color name="video_list_bg">#ffffffff</color>
 
 
@@ -31,16 +45,18 @@
 
 
     <!-- tabs -->
+    <!--@see SlidingTabStrip.java-->
     <color name="tab_indicator">@color/item_shadow</color>
     <color name="tab_underline">@color/item_shadow</color>
     <color name="tab_background">#ffffffff</color>
 
 
+
     <color name="drawer_menu_list_divider">#ffc4c4c4</color>
     <color name="drawer_menu_list_background">#ffffff</color>
     <color name="drawer_menu_list_background_pressed">#ffbed7f0</color>
-    <color name="drawer_menu_list_item_title">#ff666666</color>
-    <color name="drawer_menu_list_item_title_inversed">#ffffffff</color>
+    <color name="drawer_menu_list_item_title">#ff1f1f1f</color>
+    <color name="drawer_menu_list_item_title_inversed">#ff666666</color>
     <color name="drawer_menu_counter_text_bg">#ff4f99ff</color>
     <color name="drawer_menu_counter_text_color">#fffffefe</color>
 
