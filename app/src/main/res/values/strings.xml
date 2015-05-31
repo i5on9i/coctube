@@ -41,8 +41,8 @@
     <string name="page_name_germancoc_3">Tobi Kaiser - QuantumsWeb</string>
     <string name="page_name_germancoc_4">HateKerr</string>
 
-    <string name="page_name_protato_1">Top5 Plays</string>
-    <string name="page_name_protato_2">Plays Teamwork</string>
+    <string name="page_name_protato_1">SWC Clan Wars</string>
+
 
 
     <string name="korean_list">Korean Coc Channels</string>
@@ -51,6 +51,7 @@
     <string name="german_list">German Coc Channels</string>
     <string name="protato_list">Protatomonster</string>
 
+    <string name="clans">Clans</string>
 
     <string name="mylist">My List</string>
     <string name="like">Like</string>
@@ -66,12 +67,14 @@
         <item >@string/french_list</item>
         <item >@string/german_list</item>
         <item >@string/korean_list</item>
+        <item >@string/clans</item>
+
         <!--
             @see NavDrawerListAdapter / SimpleDrawer#processClick
             @see nav_drawer_icons
         -->
         <!--<item >@string/protato_list</item>-->
-        <item >@string/mylist</item>
+        <!--<item >@string/mylist</item>-->
         <item >@string/like</item>
         <item >@string/report</item>
         <!--<item >@string/video_list_setting</item>-->

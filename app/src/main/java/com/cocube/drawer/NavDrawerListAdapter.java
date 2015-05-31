@@ -21,6 +21,7 @@ public class NavDrawerListAdapter extends RecyclerView.Adapter<NavDrawerListAdap
 
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
+    private static final int TYPE_SEPERATOR = 2;
     private final int TYPE_SELECTED = 0;
     private final int TYPE_NOTSELECTED = 1;
     private final int TYPE_MAX_COUNT = 2;
@@ -95,42 +96,51 @@ public class NavDrawerListAdapter extends RecyclerView.Adapter<NavDrawerListAdap
     // which view type is being created 1 for item row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(holder.holderId ==1) {                              // as the list view is going to be called after the header view so we decrement the
-            int drawerItemIndex = position - 1;
-            NavDrawerItem item = navDrawerItems.get(drawerItemIndex);
 
-            int icon = item.getIcon();
-            holder.title.setTextColor(mTitleColor);
-            if (item.isSelected()) {
-                icon = item.getIconSelected();
-                holder.title.setTextColor(mTitleInversedColor);
-            }
+        switch (holder.holderId){
+            case TYPE_HEADER:
 
-            holder.icon.setImageResource(icon);
-            holder.title.setText(item.getTitle());
+                // as the list view is going to be called after the header view so we decrement the
 
-            // displaying count
-            // check whether it set visible or not
-            if (item.getCounterVisibility()) {
-                holder.count.setVisibility(View.VISIBLE);
-                holder.count.setText(item.getCount());
-            } else {
-                // hide the counter view
-                holder.count.setVisibility(View.GONE);
-            }
+                // holder.profile.setImageResource(profileId);           // Similarly we set the resources for header view
+                // holder.name.setText(name);
+                // holder.email.setText(email);
+                break;
+            case TYPE_ITEM:
 
+                NavDrawerItem item = navDrawerItems.get((int) getItemId(position));
+
+                int icon = item.getIcon();
+                holder.title.setTextColor(mTitleColor);
+                if (item.isSelected()) {
+                    icon = item.getIconSelected();
+                    holder.title.setTextColor(mTitleInversedColor);
+                }
+
+                holder.icon.setImageResource(icon);
+                holder.title.setText(item.getTitle());
+
+                // displaying count
+                // check whether it set visible or not
+                if (item.getCounterVisibility()) {
+                    holder.count.setVisibility(View.VISIBLE);
+                    holder.count.setText(item.getCount());
+                } else {
+                    // hide the counter view
+                    holder.count.setVisibility(View.GONE);
+                }
+                break;
+            case TYPE_SEPERATOR:
+                break;
         }
-        else{
 
-//            holder.profile.setImageResource(profileId);           // Similarly we set the resources for header view
-//            holder.name.setText(name);
-//            holder.email.setText(email);
-        }
+
     }
 
     @Override
     public long getItemId(int position) {
-        return position;
+        int drawerItemIndex = position - 1;
+        return drawerItemIndex;
     }
 
     @Override
@@ -222,8 +232,15 @@ public class NavDrawerListAdapter extends RecyclerView.Adapter<NavDrawerListAdap
         navDrawerItems.addAll(items);
     }
 
+    public void addItem(NavDrawerItem drawerItem) {
+        navDrawerItems.add(drawerItem);
+    }
+
+
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
+
         int holderId;
 
         TextView name;
@@ -238,17 +255,29 @@ public class NavDrawerListAdapter extends RecyclerView.Adapter<NavDrawerListAdap
 
         public ViewHolder(View itemView, int ViewType, View.OnClickListener handler) {
             super(itemView);
-            if (ViewType == TYPE_ITEM) {
-                icon = (ImageView) itemView.findViewById(R.id.icon);
-                title = (TextView) itemView.findViewById(R.id.title);
-                count = (TextView) itemView.findViewById(R.id.counter);
-                itemView.setOnClickListener(handler);
-                holderId = 1;                                               // setting holder id as 1 as the object being populated are of type item row
-            } else {
-                name = (TextView) itemView.findViewById(R.id.name);         // Creating Text View object from header.xml for name
-                email = (TextView) itemView.findViewById(R.id.email);       // Creating Text View object from header.xml for email
-                profile = (ImageView) itemView.findViewById(R.id.circleView);// Creating Image view object from header.xml for profile pic
-                holderId = 0;                                                // Setting holder id = 0 as the object being populated are of type header view
+            switch (ViewType){
+                case TYPE_ITEM:
+                    icon = (ImageView) itemView.findViewById(R.id.icon);
+                    title = (TextView) itemView.findViewById(R.id.title);
+                    count = (TextView) itemView.findViewById(R.id.counter);
+                    itemView.setOnClickListener(handler);
+                    // setting holder id as 1 as the object being populated are of type item row
+                    holderId = TYPE_ITEM;
+                    break;
+                case TYPE_HEADER:
+                    name = (TextView) itemView.findViewById(R.id.name); // Creating Text View object from header.xml for name
+                    email = (TextView) itemView.findViewById(R.id.email);   // Creating Text View object from header.xml for email
+                    profile = (ImageView) itemView.findViewById(R.id.circleView);   // Creating Image view object from header.xml for profile pic
+                    holderId = TYPE_HEADER; // Setting holder id = 0 as the object being populated are of type header view
+                    break;
+                case TYPE_SEPERATOR:
+                    icon = (ImageView) itemView.findViewById(R.id.icon);
+                    title = (TextView) itemView.findViewById(R.id.title);
+                    count = (TextView) itemView.findViewById(R.id.counter);
+                    itemView.setOnClickListener(handler);
+                    // setting holder id as 1 as the object being populated are of type item row
+                    holderId = TYPE_SEPERATOR;
+
             }
         }
     }

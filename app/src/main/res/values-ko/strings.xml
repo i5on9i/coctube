@@ -43,8 +43,8 @@
     <string name="page_name_germancoc_3">Tobi Kaiser - QuantumsWeb</string>
     <string name="page_name_germancoc_4">HateKerr</string>
 
-    <string name="page_name_protato_1">Top5 Plays</string>
-    <string name="page_name_protato_2">Plays Teamwork</string>
+    <string name="page_name_protato_1">SWC Clan Wars</string>
+
 
 
     <string name="korean_list">한국 CoC 채널</string>
@@ -53,6 +53,7 @@
     <string name="german_list">독일 Coc 채널</string>
     <string name="protato_list">해외LOL TOP5시리즈2</string>
 
+    <string name="clans">Clans</string>
 
     <string name="mylist">마이 리스트</string>
     <string name="like">즐겨찾기</string>
@@ -68,9 +69,11 @@
         <item >@string/french_list</item>
         <item >@string/german_list</item>
         <item >@string/korean_list</item>
+        <item >@string/clans</item>
+
 
         <!--<item >@string/protato_list</item>-->
-        <item >@string/mylist</item>
+        <!--<item >@string/mylist</item>-->
         <item >@string/like</item>
         <item >@string/report</item>
         <!--<item >@string/video_list_setting</item>-->

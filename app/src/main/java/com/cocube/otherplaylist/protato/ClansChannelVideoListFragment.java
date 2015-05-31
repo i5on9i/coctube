@@ -35,14 +35,14 @@ import com.cocube.loadmore.LoadMoreScrollListener;
 import com.cocube.parser.LoadListAndParseAsyncTask;
 import com.cocube.parser.ParserInfo;
 import com.cocube.parser.YouTubeVideoItem;
-import com.cocube.parser.protato.ProtatoPlayListPlaysTeamworkParserInfo;
-import com.cocube.parser.protato.ProtatoPlayListTop5PlaysParserInfo;
+import com.cocube.parser.clans.SWCClanParserInfo;
+
 import com.cocube.provider.LolTvContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProtatoVideoListFragment extends Fragment {
+public class ClansChannelVideoListFragment extends Fragment {
 
     private static final String ARG_POSITION = "position";
 
@@ -52,8 +52,8 @@ public class ProtatoVideoListFragment extends Fragment {
     private ParserInfo mParserInfo;
     private int mCurrentOrderBy = ParserInfo.SORT_TYPE_INIT;
 
-    public static ProtatoVideoListFragment newInstance(int position) {
-        ProtatoVideoListFragment f = new ProtatoVideoListFragment();
+    public static ClansChannelVideoListFragment newInstance(int position) {
+        ClansChannelVideoListFragment f = new ClansChannelVideoListFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
@@ -129,14 +129,12 @@ public class ProtatoVideoListFragment extends Fragment {
             // the count of position is determined by {@link ProtatoPagerAdapter.getCount()}
 
             case 0:
-                pinfo = new ProtatoPlayListTop5PlaysParserInfo(1);
-                break;
-            case 1:
-                pinfo = new ProtatoPlayListPlaysTeamworkParserInfo(1);
+                pinfo = new SWCClanParserInfo();
                 break;
 
+
             default:
-                pinfo = new ProtatoPlayListTop5PlaysParserInfo(1);
+                pinfo = new SWCClanParserInfo();
                 break;
         }
         return pinfo;

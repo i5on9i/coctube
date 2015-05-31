@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cocube.otherplaylist.frenchcoc;
+package com.cocube.otherplaylist.protato;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -28,19 +28,17 @@ import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.cocube.R;
-import com.cocube.otherplaylist.coctube2.CocTube2PagerAdapter;
 import com.cocube.slidingtab.SlidingTabLayout;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-
-public class FrCocChannelMainFragment extends Fragment {
+public class ClansChannelMainFragment extends Fragment {
 
     private final Handler handler = new Handler();
 
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
-    private FrCocChannelPagerAdapter adapter;
+    private ClansChannelPagerAdapter adapter;
 
     private Drawable oldBackground = null;
     private int currentColor = 0xFF2d3586;
@@ -71,7 +69,6 @@ public class FrCocChannelMainFragment extends Fragment {
         return fragment;
     }
 
-
     private void loadAdView(View fragment) {
         AdView mAdView = (AdView) fragment.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -89,7 +86,7 @@ public class FrCocChannelMainFragment extends Fragment {
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
                 getResources().getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-        adapter = new FrCocChannelPagerAdapter(getView().getContext(), getChildFragmentManager());
+        adapter = new ClansChannelPagerAdapter(getView().getContext(), getChildFragmentManager());
 
         pager.setAdapter(adapter);
         pager.setCurrentItem(mCurrentPagerItemIndex);
@@ -106,14 +103,15 @@ public class FrCocChannelMainFragment extends Fragment {
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return FrCocChannelMainFragment.this.getResources().getColor(R.color.tab_indicator);
+                return ClansChannelMainFragment.this.getResources().getColor(R.color.tab_indicator);
             }
             @Override
             public int getDividerColor(int position) {
-                return FrCocChannelMainFragment.this.getResources().getColor(R.color.tab_underline);
+                return ClansChannelMainFragment.this.getResources().getColor(R.color.tab_underline);
             }
         });
     }
+
 
     @Override
     public void onStart() {
@@ -130,15 +128,13 @@ public class FrCocChannelMainFragment extends Fragment {
 //        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
 //                getResources().getDisplayMetrics());
 //        pager.setPageMargin(pageMargin);
-//        adapter = new FrCocChannelPagerAdapter(getView().getContext(), getChildFragmentManager());
+//        adapter = new ProtatoPagerAdapter(getView().getContext(), getChildFragmentManager());
 //
 //        pager.setAdapter(adapter);
 //        pager.setCurrentItem(mCurrentPagerItemIndex);
-//
-//        mSlidingTabLayout = (SlidingTabLayout) getView().findViewById(R.id.tabs);
-//        mSlidingTabLayout.setViewPager(pager);
 
-//        REMOVE_PAGERSLIDINGTABSTRIP
+//        mSlidingTabLayout = (SlidingTabLayout) getView().findViewById(R.id.sliding_tabs);
+//        mSlidingTabLayout.setViewPager(pager);
 //        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
 //        tabs.setViewPager(pager);
 

@@ -10,6 +10,12 @@ apply plugin: 'com.android.application'
  *  1.3 : add french coc channel
  *  1.4 : add two more channels on coc2 fragment
  *  1.5 : adopt Material Design and add German Coc Channels
+ *  1.5.1 :
+ *      - remove mylist
+ *      - show adView on all the channels
+ *  1.6.0 :
+ *      - add Clans channel with SWC clans war channel
+ *
  */
 android {
     compileSdkVersion 21
@@ -19,8 +25,8 @@ android {
         applicationId "com.cocube"
         minSdkVersion 16
         targetSdkVersion 21
-        versionCode 6
-        versionName "1.5"
+        versionCode 8
+        versionName "1.6.0"
     }
     buildTypes {
         release {

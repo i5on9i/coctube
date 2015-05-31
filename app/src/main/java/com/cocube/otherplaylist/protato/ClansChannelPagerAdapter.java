@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Created by namh on 13. 12. 4.
  */
-public class ProtatoPagerAdapter extends FragmentPagerAdapter {
+public class ClansChannelPagerAdapter extends FragmentPagerAdapter {
 
 
     private final ArrayList<String> PAGE_TITLES = new ArrayList<String>();
@@ -23,7 +23,7 @@ public class ProtatoPagerAdapter extends FragmentPagerAdapter {
     //{"Latest", "Most Viewed", "KR SoloQ Highlight", "KR SoloQ Full Movie"};
 
 
-    public ProtatoPagerAdapter(Context context, FragmentManager fm) {
+    public ClansChannelPagerAdapter(Context context, FragmentManager fm) {
 
         super(fm);
 
@@ -32,7 +32,7 @@ public class ProtatoPagerAdapter extends FragmentPagerAdapter {
 
 
         PAGE_TITLES.add(resources.getString(R.string.page_name_protato_1));
-        PAGE_TITLES.add(resources.getString(R.string.page_name_protato_2));
+
 
 
 
@@ -55,11 +55,11 @@ public class ProtatoPagerAdapter extends FragmentPagerAdapter {
             case 1:
             case 2:
             case 3:
-                return ProtatoVideoListFragment.newInstance(position);
+                return ClansChannelVideoListFragment.newInstance(position);
 
 
             default:
-                return ProtatoVideoListFragment.newInstance(position);
+                return ClansChannelVideoListFragment.newInstance(position);
 
         }
 
@@ -67,7 +67,7 @@ public class ProtatoPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getItemPosition(Object item) {
-        ProtatoVideoListFragment fragment = (ProtatoVideoListFragment) item;
+        ClansChannelVideoListFragment fragment = (ClansChannelVideoListFragment) item;
         int orderBy = fragment.getOrderBy();
         if (orderBy == ParserInfo.SORT_TYPE_NONE
                 || orderBy == LolTvPreference.getOrderBy(mContext)) {

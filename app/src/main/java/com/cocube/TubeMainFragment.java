@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package com.cocube.otherplaylist.protato;
+package com.cocube;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -27,28 +28,34 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.cocube.R;
-import com.cocube.otherplaylist.krcoc.KrCocChannelPagerAdapter;
 import com.cocube.slidingtab.SlidingTabLayout;
-
-public class ProtatoMainFragment extends Fragment {
-
-    private final Handler handler = new Handler();
-
-    private PagerSlidingTabStrip tabs;
-    private ViewPager pager;
-    private ProtatoPagerAdapter adapter;
-
-    private Drawable oldBackground = null;
-    private int currentColor = 0xFF2d3586;
-    private String mCurrentYoutubeId;
-    private int mYoutubeState;
-    private int mCurrentPage;
-
-    private int mCurrentPagerItemIndex = 0;
-    private SlidingTabLayout mSlidingTabLayout;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 
+public abstract class TubeMainFragment extends Fragment {
+
+    final Handler handler = new Handler();
+
+    PagerSlidingTabStrip tabs;
+    ViewPager pager;
+    FragmentPagerAdapter adapter;
+    SlidingTabLayout mSlidingTabLayout;
+
+    Drawable oldBackground = null;
+    int currentColor = 0xFF2d3586;
+    String mCurrentYoutubeId;
+    int mYoutubeState;
+    int mCurrentPage;
+
+    int mCurrentPagerItemIndex = 0;
+
+
+    // ---------------------------------------------------------------- abstract
+    protected abstract FragmentPagerAdapter getAdapter();
+
+
+    //------------------------------------------------------------------
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -63,15 +70,22 @@ public class ProtatoMainFragment extends Fragment {
 
         View fragment = inflater.inflate(R.layout.fragment_main, container, false);
 
+        loadAdView(fragment);
+
 
         return fragment;
     }
 
+    void loadAdView(View fragment) {
+        AdView mAdView = (AdView) fragment.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         setUpPager(view);
-        setUpTabColor();
+//        setUpTabColor();
     }
 
     void setUpPager(View view){
@@ -79,7 +93,7 @@ public class ProtatoMainFragment extends Fragment {
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
                 getResources().getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-        adapter = new ProtatoPagerAdapter(getView().getContext(), getChildFragmentManager());
+        adapter = getAdapter();
 
         pager.setAdapter(adapter);
         pager.setCurrentItem(mCurrentPagerItemIndex);
@@ -92,46 +106,46 @@ public class ProtatoMainFragment extends Fragment {
 //        tabs.setViewPager(pager);
     }
 
+
+
+
     void setUpTabColor(){
         mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
             @Override
             public int getIndicatorColor(int position) {
-                return ProtatoMainFragment.this.getResources().getColor(R.color.tab_indicator);
+                return TubeMainFragment.this.getResources().getColor(R.color.tab_indicator);
             }
             @Override
             public int getDividerColor(int position) {
-                return ProtatoMainFragment.this.getResources().getColor(R.color.tab_underline);
+                return TubeMainFragment.this.getResources().getColor(R.color.tab_underline);
             }
         });
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
 
 
-//        setContentView(R.layout.activity_main_with_menu);
-
         // tabs --> pager --> adapter
-
-
 
 //        pager = (ViewPager) getView().findViewById(R.id.pager);
 //        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2,
 //                getResources().getDisplayMetrics());
 //        pager.setPageMargin(pageMargin);
-//        adapter = new ProtatoPagerAdapter(getView().getContext(), getChildFragmentManager());
+//        adapter = new CocubePagerAdapter(getView().getContext(), getChildFragmentManager());
 //
 //        pager.setAdapter(adapter);
 //        pager.setCurrentItem(mCurrentPagerItemIndex);
-
+//
 //        mSlidingTabLayout = (SlidingTabLayout) getView().findViewById(R.id.sliding_tabs);
 //        mSlidingTabLayout.setViewPager(pager);
+
 //        tabs = (PagerSlidingTabStrip) getView().findViewById(R.id.tabs);
 //        tabs.setViewPager(pager);
 
     }
+
 
     @Override
     public void onResume() {
@@ -149,7 +163,10 @@ public class ProtatoMainFragment extends Fragment {
 
 
     public void notifyDataSetChanged() {
-        adapter.notifyDataSetChanged();
+        if(adapter != null)
+            adapter.notifyDataSetChanged();
     }
+
+
 
 }

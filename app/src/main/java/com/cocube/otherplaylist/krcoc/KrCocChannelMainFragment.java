@@ -30,6 +30,8 @@ import com.astuetz.PagerSlidingTabStrip;
 import com.cocube.R;
 import com.cocube.otherplaylist.frenchcoc.FrCocChannelPagerAdapter;
 import com.cocube.slidingtab.SlidingTabLayout;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 public class KrCocChannelMainFragment extends Fragment {
 
@@ -62,11 +64,17 @@ public class KrCocChannelMainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View fragment = inflater.inflate(R.layout.fragment_main, container, false);
+        loadAdView(fragment);
 
 
         return fragment;
     }
 
+    private void loadAdView(View fragment) {
+        AdView mAdView = (AdView) fragment.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
 
 
     @Override

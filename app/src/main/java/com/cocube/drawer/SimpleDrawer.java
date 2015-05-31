@@ -16,9 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cocube.MainFragment;
@@ -28,7 +26,7 @@ import com.cocube.otherplaylist.coctube2.CocTube2MainFragment;
 import com.cocube.otherplaylist.frenchcoc.FrCocChannelMainFragment;
 import com.cocube.otherplaylist.germancoc.GermanCocChannelMainFragment;
 import com.cocube.otherplaylist.krcoc.KrCocChannelMainFragment;
-import com.cocube.otherplaylist.protato.ProtatoMainFragment;
+import com.cocube.otherplaylist.protato.ClansChannelMainFragment;
 
 
 import java.util.ArrayList;
@@ -153,7 +151,8 @@ public class SimpleDrawer extends DrawerLayout implements
         mMenuDrawer = (MenuDrawer) this.findViewById(R.id.list_slidermenu);
 
 
-        mMenuDrawer.setHasFixedSize(true);                            // Letting the system know that the list objects are of fixed size
+        // Letting the system know that the list objects are of fixed size
+        mMenuDrawer.setHasFixedSize(true);
 
 
         // And passing the titles,icons,header view name, header view email,
@@ -165,6 +164,9 @@ public class SimpleDrawer extends DrawerLayout implements
 
         mMenuDrawer.setAdapter(adapter);
     }
+
+
+
 
     private ArrayList<NavDrawerItem> getDefaultDrawerMenuList(Resources resources) {
 
@@ -262,8 +264,8 @@ public class SimpleDrawer extends DrawerLayout implements
 
 
             case 5:
-                if (!(mFragment instanceof ProtatoMainFragment)) {
-                    setUpSelectedFragment(position, new ProtatoMainFragment());
+                if (!(mFragment instanceof ClansChannelMainFragment)) {
+                    setUpSelectedFragment(position, new ClansChannelMainFragment());
                 }
                 break;
 
